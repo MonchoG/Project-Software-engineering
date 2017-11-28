@@ -15,6 +15,7 @@ public class DAO {
 
     /**
      * DAO constructor
+     *
      * @param db - takes DB manager as paramater to make the connection
      */
     protected DAO(DBmanager db) {
@@ -25,9 +26,10 @@ public class DAO {
 
     /**
      * getInstance
+     *
      * @param db
      * @return uniqueInstance
-     *
+     * <p>
      * Makes an instance if there is not one.
      */
     public static synchronized DAO getInstance(DBmanager db) {
@@ -40,7 +42,7 @@ public class DAO {
      * getWeather method
      *
      * @return arraylist with the data from the database
-     *
+     * <p>
      * it extracts the data we mentioned in the select statement
      */
 
@@ -78,5 +80,137 @@ public class DAO {
             }
         }
         return weather;
+    }
+
+    /**
+     * get Time
+     * getter for the timestamp
+     *
+     * @return returns the last measurement timestamp
+     */
+
+    protected String getTime() {
+        String time = null;
+        statement = null;
+
+        try {
+            String sql = "SELECT timeAndDate from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                time = result.getString("timeAndDate");
+            }
+            System.out.println(time);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    /**
+     * getTemp
+     * getter for the temperature
+     *
+     * @return returns the last measurement temperature
+     */
+    protected double getTemp() {
+        double temp = 0;
+        statement = null;
+
+        try {
+            String sql = "SELECT temperature from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                temp = result.getDouble("temperature");
+            }
+            System.out.println(temp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
+    /**
+     * getWindspeed
+     * getter for the wind speed
+     *
+     * @return returns the last measurement windspeed
+     */
+    protected double getWindspeed() {
+        double windSpeed = 0;
+        statement = null;
+
+        try {
+            String sql = "SELECT windspeed from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                windSpeed = result.getDouble("windspeed");
+            }
+            System.out.println(windSpeed);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return windSpeed;
+    }
+
+    /**
+     * getHumidity
+     * getter for the humidity
+     *
+     * @return returns the last measurement humidity
+     */
+    protected double getHumidity() {
+        double humidity = 0;
+        statement = null;
+
+        try {
+            String sql = "SELECT humidity from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                humidity = result.getDouble("humidity");
+            }
+            System.out.println(humidity);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return humidity;
+    }
+
+
+    /**
+     * getPressure
+     * getter for the pressure
+     *
+     * @return returns the last measurement pressure
+     */
+    protected double getPressure() {
+        double pressure = 0;
+        statement = null;
+
+        try {
+            String sql = "SELECT pressure from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                pressure = result.getDouble("pressure");
+            }
+            System.out.println(pressure);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pressure;
     }
 }

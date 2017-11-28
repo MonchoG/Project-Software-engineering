@@ -15,5 +15,10 @@ public class Test {
             else cdb.getWeather();
         }
         cdb.getWeather();
+        cdb.getTime();
+        cdb.getTemp();
+        cdb.getWindspeed();
+        cdb.getHumidity();
+        cdb.getPressure();
     }
 }
