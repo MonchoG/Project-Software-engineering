@@ -51,7 +51,7 @@ public class DAO {
         statement = null;
 
         try {
-            String sql = "SELECT timeAndDate, temperature, windspeed, humidity, pressure from measurements;";
+            String sql = "SELECT timeAndDate, temperature, light, pressure from measurements;";
             statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(sql);
@@ -60,13 +60,12 @@ public class DAO {
 
                 String time = resultSet.getString("timeAndDate");
                 String temp = resultSet.getString("temperature");
-                String wind = resultSet.getString("windspeed");
-                String hum = resultSet.getString("humidity");
+                String light = resultSet.getString("light");
                 String pres = resultSet.getString("pressure");
 
-                weather.add(String.format("%-20.20s  %-20.20s %-20.20s %-20.20s %-20.20s", time, temp, wind, hum, pres));
+                weather.add(String.format("%-20.20s  %-20.20s %-20.20s %-20.20s", time, temp, light, pres));
             }
-            System.out.println("Time             Temperature             WindSpeed           Humidity               Pressure");
+            System.out.println("Time             Temperature             Light           Pressure ");
             for (String s : weather) {
                 System.out.println(s);
             }
@@ -136,55 +135,29 @@ public class DAO {
     }
 
     /**
-     * getWindspeed
-     * getter for the wind speed
-     *
-     * @return returns the last measurement windspeed
-     */
-    protected double getWindspeed() {
-        double windSpeed = 0;
-        statement = null;
-
-        try {
-            String sql = "SELECT windspeed from measurements order by timeAndDate desc limit 1;";
-            statement = connection.createStatement();
-
-            ResultSet result = statement.executeQuery(sql);
-
-            if (result.next()) {
-                windSpeed = result.getDouble("windspeed");
-            }
-            System.out.println(windSpeed);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return windSpeed;
-    }
-
-    /**
-     * getHumidity
-     * getter for the humidity
+     * getLight
+     * getter for the light
      *
      * @return returns the last measurement humidity
      */
-    protected double getHumidity() {
-        double humidity = 0;
+    protected double getLight() {
+        double light = 0;
         statement = null;
 
         try {
-            String sql = "SELECT humidity from measurements order by timeAndDate desc limit 1;";
+            String sql = "SELECT light from measurements order by timeAndDate desc limit 1;";
             statement = connection.createStatement();
 
             ResultSet result = statement.executeQuery(sql);
 
             if (result.next()) {
-                humidity = result.getDouble("humidity");
+                light = result.getDouble("light");
             }
-            System.out.println(humidity);
+            System.out.println(light);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return humidity;
+        return light;
     }
 
 
