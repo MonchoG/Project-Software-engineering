@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="CurrentWeatherController">
+    <children>
+        <AnchorPane prefHeight="500.0" prefWidth="400.0">
+            <children>
+
+                <Label layoutX="50.0" layoutY="380.0" text="Updated:">
+                    <font>
+                        <Font name= "Space Mono" size="14"/>
+                    </font>
+                </Label>
+                <Label fx:id= "time" layoutX="120" layoutY="380" >
+                    <font>
+                        <Font size="14"/>
+                    </font>
+                </Label>
+                <Button fx:id="btn_msg"  layoutX="320" layoutY="0" mnemonicParsing="false" text="Graph >" onAction="#graph">
+                    <font>
+                        <Font name= "System bold" size="14"/>
+                    </font>
+                </Button>
+                <ImageView layoutX="100" layoutY="100"  fitWidth="90.0" pickOnBounds="true" preserveRatio="true" >
+                    <image>
+                        <Image url="weatherIcon.png.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id = "temp" layoutX = "200" layoutY="90" >
+                    <font>
+                        <Font  size="60"/>
+                    </font>
+                </Label>
+                <Button fx:id="c" layoutX="330" layoutY="90" mnemonicParsing="false" text="C" >
+                    <font>
+                        <Font  size="16" />
+                    </font>
+                </Button>
+                <Label layoutX="350" layoutY="89" text="|">
+                <font>
+                    <Font name="System bold" size="16"/>
+                </font>
+                </Label>
+                <Button fx:id="f" layoutX="350" layoutY="90" mnemonicParsing="false" text="F" >
+                    <font>
+                        <Font  size="16"/>
+                    </font>
+                </Button>
+                <ImageView layoutX="120" layoutY="230"  fitWidth="20.0" pickOnBounds="false" preserveRatio="true" >
+                    <image>
+                        <Image url="indicator.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="pres" layoutX="150" layoutY="230"> </Label>
+                <ImageView layoutX="120" layoutY="260" fitWidth="20" pickOnBounds="false" preserveRatio="true">
+                    <image>
+                        <Image url="images.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="lux" layoutX="150" layoutY="260"> </Label>
+                <Button fx:id="refresh" layoutX="250" layoutY="378" mnemonicParsing="false" onAction="#refresh">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" >
+                            <image>
+                                <Image url="refresh.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</Pane>
