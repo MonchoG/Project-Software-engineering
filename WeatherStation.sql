@@ -24,7 +24,10 @@ values (12, 560, 250);
 insert into measurements (temperature, light, pressure)
 values (11.5, 540, 240);
 insert into measurements (temperature, light, pressure)
+
 values (10.6, 500, 250);
 
 insert into measurements (temperature, light, pressure)
 values (80.6, 800, 850);
+values (10.6, 500, 250);
+
