@@ -1,31 +1,14 @@
-
-import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class CurrentWeatherController {
     private DAO db;
@@ -52,6 +35,7 @@ public class CurrentWeatherController {
     private double cel, fahr;
     private static Thread thread;
     int lastValue;
+    boolean last_was_fahr = false;
 
     public CurrentWeatherController() {
         this.db = new DAO(DBmanager.getInstance());
@@ -68,23 +52,24 @@ public class CurrentWeatherController {
             time.setText(db.getTime());
             temp.setText(String.valueOf(cel) + "°");
             delay2.setText(String.valueOf(delay.getValue() / 60000));
-            c.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-                    temp.setText(String.valueOf(cel) + "°");
-                }
+            if (last_was_fahr) {
+                temp.setText(String.valueOf(fahr) + "F");
+            } else temp.setText(String.valueOf(cel) + "C");
+
+            c.setOnAction(event -> {
+                last_was_fahr = false;
+                temp.setText(String.valueOf(cel) + "C");
             });
-            f.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent event) {
-
-                    temp.setText(String.valueOf(fahr) + "°");
-
-                }
+            f.setOnAction(event -> {
+                last_was_fahr = true;
+                temp.setText(String.valueOf(fahr) + "F");
             });
             pres.setText(String.valueOf(db.getPressure() + " atm"));
             lux.setText(String.valueOf(db.getLight() + " lx"));
         } catch (Exception Exc) {
-            System.out.println();
+            System.out.println(Exc);
         }
+
     }
 
     public void setMain(AppMain main) {
@@ -113,20 +98,17 @@ public class CurrentWeatherController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (lastValue != delay.getValue()) {
-                            try {
-                                timer.cancel();
-                                timer.purge();
-                                slider_release();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                Platform.runLater(() -> {
+                    if (lastValue != delay.getValue()) {
+                        try {
+                            timer.cancel();
+                            timer.purge();
+                            slider_release();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        initialize();
                     }
+                    initialize();
                 });
             }
         }, delay1, delay1);

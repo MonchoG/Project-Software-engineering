@@ -65,10 +65,10 @@ public class DAO {
 
                 weather.add(String.format("%-20.20s  %-20.20s %-20.20s %-20.20s", time, temp, light, pres));
             }
-            System.out.println("Time             Temperature             Light           Pressure ");
-            for (String s : weather) {
-                System.out.println(s);
-            }
+//            System.out.println("Time             Temperature             Light           Pressure ");
+//            for (String s : weather) {
+//                System.out.println(s);
+//            }
         } catch (SQLException se) {
             se.printStackTrace();
         } finally {
