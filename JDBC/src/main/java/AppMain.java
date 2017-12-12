@@ -31,7 +31,6 @@ public class AppMain extends Application {
         scene2 = new Scene(pane2, 600, 400);
 
         scene1.getStylesheets().add(getClass().getResource("screen_current_weather_css.css").toExternalForm());
-        scene2.getStylesheets().add(getClass().getResource("screen_current_weather_css.css").toExternalForm());
 
         currentWeatherController.setScene2(scene2);
         currentWeatherController.setMain(AppMain.this);

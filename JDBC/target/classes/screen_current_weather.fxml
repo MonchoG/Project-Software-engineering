@@ -13,13 +13,12 @@
     <children>
         <AnchorPane prefHeight="500.0" prefWidth="400.0">
             <children>
-
-                <Label layoutX="50.0" layoutY="380.0" text="Updated:">
+                <Label layoutX="30.0" layoutY="380.0" text="Last measurement: ">
                     <font>
                         <Font name="Space Mono" size="14" />
                     </font>
                 </Label>
-                <Label fx:id="time" layoutX="120" layoutY="380">
+                <Label fx:id="time" layoutX="160" layoutY="380">
                     <font>
                         <Font size="14" />
                     </font>
@@ -66,7 +65,7 @@
                     </image>
                 </ImageView>
                 <Label fx:id="lux" layoutX="150" layoutY="260"> </Label>
-                <Button fx:id="refresh" layoutX="250" layoutY="378" mnemonicParsing="false" onAction="#refresh">
+                <Button fx:id="refresh" layoutX="300" layoutY="378" mnemonicParsing="false" onAction="#refresh">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -77,7 +76,6 @@
                 </Button>
                 <Label fx:id="delay2" layoutX="150" layoutY="310"> </Label>
             <Slider fx:id="delay" blockIncrement="30000.0" layoutX="120.0" layoutY="327.0" majorTickUnit="180000.0" max="300000.0" min="60000.0" minorTickCount="180000" onMouseDragged="#slider_drag" onMouseReleased="#slider_release" />
-
             </children>
         </AnchorPane>
     </children>

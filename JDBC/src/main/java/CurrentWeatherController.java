@@ -15,11 +15,9 @@ public class CurrentWeatherController {
     private Scene scene2;
     private AppMain main;
 
-
     @FXML
     private Label time;
-    @FXML
-    private Label temp;
+    public Label temp;
     @FXML
     private Button c;
     @FXML
@@ -36,6 +34,7 @@ public class CurrentWeatherController {
     private static Thread thread;
     int lastValue;
     boolean last_was_fahr = false;
+    DecimalFormat df = new DecimalFormat("#.00");
 
     public CurrentWeatherController() {
         this.db = new DAO(DBmanager.getInstance());
@@ -44,6 +43,11 @@ public class CurrentWeatherController {
     }
 
     @FXML
+    /**initialize method
+     * sets all components in the GUI to their corresponding data
+     * 
+     *
+     */
     private void initialize() {
         try {
             lastValue = (int) delay.getValue();
@@ -51,7 +55,7 @@ public class CurrentWeatherController {
             fahr = cel + 32;
             time.setText(db.getTime());
             temp.setText(String.valueOf(cel) + "°");
-            delay2.setText(String.valueOf(delay.getValue() / 60000));
+            delay2.setText(df.format(delay.getValue() / 60000));
             if (last_was_fahr) {
                 temp.setText(String.valueOf(fahr) + "F");
             } else temp.setText(String.valueOf(cel) + "C");
@@ -87,8 +91,8 @@ public class CurrentWeatherController {
 
     @FXML
     public void slider_drag() {
-        DecimalFormat df = new DecimalFormat("#.00");
-        delay2.setText(String.valueOf(df.format(delay.getValue() / 60000)));
+
+        delay2.setText(df.format(delay.getValue() / 60000));
     }
 
     public void slider_release() throws InterruptedException {
@@ -104,6 +108,7 @@ public class CurrentWeatherController {
                             timer.cancel();
                             timer.purge();
                             slider_release();
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -112,8 +117,6 @@ public class CurrentWeatherController {
                 });
             }
         }, delay1, delay1);
-
-
     }
 
     public void refresh() {
