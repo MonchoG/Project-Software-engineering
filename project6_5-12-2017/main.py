@@ -5,7 +5,7 @@
 from SI7006A20 import SI7006A20
 from LTR329ALS01 import LTR329ALS01
 from MPL3115A2 import MPL3115A2,ALTITUDE,PRESSURE
-import time
+
 
 from network import LoRa
 import time
@@ -43,7 +43,7 @@ while True:
 
     print("hum",si.humidity())
     print("light",lt.light())
-    print("presure",mp.pressure())
+    print("pressure",mp.pressure())
     time.sleep(0.5)
     #print(li.acceleration())
     #print(li.roll())
