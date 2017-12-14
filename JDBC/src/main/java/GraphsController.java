@@ -11,14 +11,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class GraphsController implements Initializable{
+public class GraphsController{
 
     private Scene scene1;
     private AppMain main;
     @FXML
     private NumberAxis yAxis;
     @FXML
-    private NumberAxis yAxis2;
+    private NumberAxis xAxis;
     @FXML
     private LineChart<Integer, Double> lineChart;
     @FXML
@@ -27,103 +27,167 @@ public class GraphsController implements Initializable{
     private ToggleButton Light;
     @FXML
     private ToggleButton Pres;
+    @FXML
+    private ToggleButton Humid;
 
-
+    //Creating connection without needing to open MySQL
     private DAO dbc = new DAO(DBmanager.getInstance());
-    @Override
-    public void initialize(URL location, ResourceBundle resources){
-        //Create new XY Chart
-         XYChart.Series<Integer, Double> default_graph= new XYChart.Series<>();
-        //Adding Data to Graph when started up
-        default_graph.setName("Temp");
-        default_graph.getData().add(new XYChart.Data<>(1, dbc.getTemp()));
-        default_graph.getData().add(new XYChart.Data<>(2, 3.0));
-        default_graph.getData().add(new XYChart.Data<>(3, 29.0));
-        default_graph.getData().add(new XYChart.Data<>(4, 15.0));
-        default_graph.getData().add(new XYChart.Data<>(5, 18.0));
-        default_graph.getData().add(new XYChart.Data<>(6, 25.0));
-        default_graph.getData().add(new XYChart.Data<>(7, 26.0));
-        default_graph.getData().add(new XYChart.Data<>(8, 18.0));
-        default_graph.getData().add(new XYChart.Data<>(9, 24.0));
-        default_graph.getData().add(new XYChart.Data<>(10, 16.0));
-        lineChart.getData().setAll(default_graph);
+
+    /**
+     * Setting default graph on Temperature
+     * Setting Temperature ToggleButton on selected and the others on not selected
+     */
+
+    public void initialize(){
+        lineChart.getData().setAll(getTemp());
+        //Temperature is default shown on graph
         Temp.setSelected(true);
         Light.setSelected(false);
         Pres.setSelected(false);
-
-        System.out.println(lineChart.getYAxis());
     }
+
+    /**
+     * Checking which variables are selected
+     * Showing the selected values in a graph
+     */
+
     public void setLineChart(){
-
-        //Checking which are selected and showing only the selected ones
+        //Checking Temperature button
         if(Temp.isSelected()){
-            yAxis.setLabel("Temperature");
-            yAxis.setTickLabelsVisible(true);
-
+            //Checking Light button
             if(Light.isSelected()){
+                //Checking Pressure button
                 if(Pres.isSelected()){
-
-                    lineChart.getData().setAll(getTemp(), getLight(), getPres());
-
+                    //Checking Humidity button
+                    if(Humid.isSelected()){
+                        //All four variables are selected
+                        lineChart.getData().setAll(getTemp(), getLight(), getPres(), getHumid());
+                    }
+                    else{
+                        //Temperature, Light and Pressure are selected
+                        lineChart.getData().setAll(getTemp(), getLight(), getPres());
+                    }
+                }
+                //Checking Humidity button
+                else if(Humid.isSelected()){
+                    //Temperature, Light and Humidity are selected
+                    lineChart.getData().setAll(getTemp(), getLight(), getHumid());
                 }
                 else{
+                    //Temperature and Light are Selected
                     lineChart.getData().setAll(getTemp(), getLight());
                 }
             }
+            //Checking Pressure button
             else if(Pres.isSelected()){
-                lineChart.getData().setAll(getTemp(), getPres());
+                //Checking Humidity button
+                if(Humid.isSelected()){
+                    //Temperature, Pressure and Humidity are selected
+                    lineChart.getData().setAll(getTemp(), getPres(), getHumid());
+                }
+                else{
+                    //Temperature and Pressure are selected
+                    lineChart.getData().setAll(getTemp(), getPres());
+                }
             }
             else{
-                lineChart.getData().setAll(getTemp());
+                //Checking Humidity button
+                if(Humid.isSelected()){
+                    //Temperature and Humidity are selected
+                    lineChart.getData().setAll(getTemp(), getHumid());
+                }
+                else{
+                    //Only Temperature is selected
+                    lineChart.getData().setAll(getTemp());
+                }
             }
         }
+
+        //Checking Light button
         else if(Light.isSelected()){
+            //Checking Pressure button
             if(Pres.isSelected()){
-                lineChart.getData().setAll(getLight(), getPres());
+                //Checking Humidity button
+                if(Humid.isSelected()){
+                    //Light, Pressure and Humidity are selected
+                    lineChart.getData().setAll(getLight(), getPres(), getHumid());
+                }
+                else{
+                    //Light and Pressure are Selected
+                    lineChart.getData().setAll(getLight(), getPres());
+                }
+            }
+            else if(Humid.isSelected()){
+                //Light and Humidity are selected
+                lineChart.getData().setAll(getLight(), getHumid());
             }
             else{
-                yAxis.setLabel("Light");
-                yAxis.setTickLabelsVisible(true);
+                //Only light is selected
                 lineChart.getData().setAll(getLight());
             }
         }
+
+        //Checking Pressure button
         else if(Pres.isSelected()){
-            yAxis.setLabel("Pressure");
-            yAxis.setTickLabelsVisible(true);
-            lineChart.getData().setAll(getPres());
+            //Checking Humidity button
+            if(Humid.isSelected()){
+                //Pressure and Humidity are selected
+                lineChart.getData().setAll(getPres(), getHumid());
+            }
+            else{
+                //Only Pressure is selected
+                lineChart.getData().setAll(getPres());
+            }
+
+        }
+        //Checking Humidity button
+        else if(Humid.isSelected()){
+            //Only Humidity is selected
+            lineChart.getData().setAll(getHumid());
         }
         else{
-            yAxis.setLabel("");
-            yAxis2.setLabel("Testing");
-
-            yAxis.setTickLabelsVisible(false);
+            //None are selected
             lineChart.getData().setAll();
         }
 
     }
+
+    /**
+     * Creating XYChart
+     * Adding all values in it
+     * @return Light XYChart with all data in it
+     */
+
     public XYChart.Series<Integer, Double> getLight(){
-
         //Creating graph for Light
-
         XYChart.Series<Integer, Double> light = new XYChart.Series<>();
-        light.getData().add(new XYChart.Data<>(1, 200.0));
-        light.getData().add(new XYChart.Data<>(2, 400.0));
-        light.getData().add(new XYChart.Data<>(3, 180.0));
-        light.getData().add(new XYChart.Data<>(4, 200.0));
-        light.getData().add(new XYChart.Data<>(5, 302.0));
-        light.getData().add(new XYChart.Data<>(6, 205.0));
-        light.getData().add(new XYChart.Data<>(7, 105.0));
-        light.getData().add(new XYChart.Data<>(8, 250.0));
-        light.getData().add(new XYChart.Data<>(9, 383.0));
+        light.getData().add(new XYChart.Data<>(0, 0.0));
+        light.getData().add(new XYChart.Data<>(1, 44.0));
+        light.getData().add(new XYChart.Data<>(2, 18.0));
+        light.getData().add(new XYChart.Data<>(3, 33.0));
+        light.getData().add(new XYChart.Data<>(4, 88.0));
+        light.getData().add(new XYChart.Data<>(5, 55.0));
+        light.getData().add(new XYChart.Data<>(6, 30.0));
+        light.getData().add(new XYChart.Data<>(7, 88.0));
+        light.getData().add(new XYChart.Data<>(8, 36.0));
+        light.getData().add(new XYChart.Data<>(9, 55.0));
+
         //Setting Legend name
-        light.setName("Light");
+        light.setName("Light (lx)");
+
         return light;
     }
+
+    /**
+     * Creating a XYChart
+     * Adding all values in it
+     * @return Temperature XYChart with all data in it
+     */
+
     public XYChart.Series<Integer, Double> getTemp(){
-
         //Creating graph for Temp
-
         XYChart.Series<Integer, Double> temp = new XYChart.Series<>();
+        temp.getData().add(new XYChart.Data<>(0, 0.0));
         temp.getData().add(new XYChart.Data<>(1, dbc.getTemp()));
         temp.getData().add(new XYChart.Data<>(2, 3.0));
         temp.getData().add(new XYChart.Data<>(3, 29.0));
@@ -133,26 +197,61 @@ public class GraphsController implements Initializable{
         temp.getData().add(new XYChart.Data<>(7, 26.0));
         temp.getData().add(new XYChart.Data<>(8, 18.0));
         temp.getData().add(new XYChart.Data<>(9, 24.0));
-        temp.getData().add(new XYChart.Data<>(10, 16.0));
         //Setting Legend name
-        temp.setName("Temp");
+        temp.setName("Temp (°C)");
         return temp;
     }
+
+    /**
+     * Creating a XYChart
+     * Adding all values into the graph
+     * @return Pressure XYChart with all data in it
+     */
+
     public XYChart.Series<Integer, Double> getPres(){
         //Creating graph for Pressure
         XYChart.Series<Integer, Double> pres = new XYChart.Series<>();
-        pres.getData().add(new XYChart.Data<>(1, 431.4));
-        pres.getData().add(new XYChart.Data<>(2, 1253.4));
-        pres.getData().add(new XYChart.Data<>(3, 834.4));
-        pres.getData().add(new XYChart.Data<>(4, 535.5));
-        pres.getData().add(new XYChart.Data<>(5, 2345.45));
-        pres.getData().add(new XYChart.Data<>(6, 345.5));
-        pres.getData().add(new XYChart.Data<>(7, 3455.55));
-        pres.getData().add(new XYChart.Data<>(8, 3453.5));
-        pres.getData().add(new XYChart.Data<>(9, 285.5));
+        pres.getData().add(new XYChart.Data<>(0, 0.0));
+        pres.getData().add(new XYChart.Data<>(1, 88.0));
+        pres.getData().add(new XYChart.Data<>(2, 30.0));
+        pres.getData().add(new XYChart.Data<>(3, 40.0));
+        pres.getData().add(new XYChart.Data<>(4, 18.0));
+        pres.getData().add(new XYChart.Data<>(5, 33.0));
+        pres.getData().add(new XYChart.Data<>(6, 80.0));
+        pres.getData().add(new XYChart.Data<>(7, 44.0));
+        pres.getData().add(new XYChart.Data<>(8, 99.0));
+        pres.getData().add(new XYChart.Data<>(9, 25.0));
+
         //Setting Legend name
-        pres.setName("Pressure");
+        pres.setName("Pressure (atm)");
+
         return pres;
+    }
+
+    /**
+     * Creating a XYChart
+     * Adding all values into the graph
+     * @return Humidity XYChart with all data in it
+     */
+
+    public XYChart.Series<Integer, Double> getHumid(){
+        //Creating graph for Pressure
+        XYChart.Series<Integer, Double> humid = new XYChart.Series<>();
+        humid.getData().add(new XYChart.Data<>(0, -50.0));
+        humid.getData().add(new XYChart.Data<>(1, 25.0));
+        humid.getData().add(new XYChart.Data<>(2, 44.0));
+        humid.getData().add(new XYChart.Data<>(3, 53.0));
+        humid.getData().add(new XYChart.Data<>(4, 28.0));
+        humid.getData().add(new XYChart.Data<>(5, 33.0));
+        humid.getData().add(new XYChart.Data<>(6, 39.0));
+        humid.getData().add(new XYChart.Data<>(7, 42.0));
+        humid.getData().add(new XYChart.Data<>(8, 28.0));
+        humid.getData().add(new XYChart.Data<>(9, 88.0));
+
+        //Setting Legend name
+        humid.setName("Humidity (%)");
+
+        return humid;
     }
 
     public void setMain(AppMain main){
