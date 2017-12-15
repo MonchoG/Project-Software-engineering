@@ -20,38 +20,52 @@
                 </Label>
                 <Label fx:id="time" layoutX="160" layoutY="380">
                     <font>
-                        <Font size="14" />
+                        <Font size="12" />
                     </font>
                 </Label>
-                <Button fx:id="btn_msg" layoutX="320" layoutY="0" mnemonicParsing="false" onAction="#graph" text="Graph &gt;">
+                <Button fx:id="graph" layoutX="320" layoutY="15" mnemonicParsing="false" onAction="#graph" text="Graph &gt;">
                     <font>
                         <Font name="System bold" size="14" />
                     </font>
                 </Button>
-                <ImageView fitWidth="90.0" layoutX="80" layoutY="100" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitWidth="90.0" layoutX="50" layoutY="50" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="weatherIcon.png.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="temp" layoutX="180" layoutY="90">
+                <Label fx:id="temp" layoutX="150" layoutY="50">
                     <font>
                         <Font size="60" />
                     </font>
                 </Label>
-                <Button fx:id="c" layoutX="200" layoutY="90" mnemonicParsing="false" text="F" ></Button>
-                <Button fx:id="f" layoutX="200" layoutY="90" mnemonicParsing="false" text="C"></Button>
-                <ImageView fitWidth="20.0" layoutX="120" layoutY="230" pickOnBounds="false" preserveRatio="true">
+                <Button fx:id="c" layoutX="250" layoutY="40" mnemonicParsing="false" text="F" ></Button>
+                <Button fx:id="f" layoutX="250" layoutY="40" mnemonicParsing="false" text="C"></Button>
+                <ImageView fx:id="pressIcon" fitWidth="30" fitHeight="30" layoutX="50" layoutY="200" pickOnBounds="false" preserveRatio="true">
                     <image>
-                        <Image url="indicator.png" />
+                        <Image url="press.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="pres" layoutX="150" layoutY="230"> </Label>
-                <ImageView fitWidth="20" layoutX="120" layoutY="260" pickOnBounds="false" preserveRatio="true">
+                <Label fx:id="pres" layoutX="100" layoutY="205"> </Label>
+                <ImageView fx:id="lightIcon" fitWidth="30" fitHeight="30" layoutX="50" layoutY="240" pickOnBounds="false" preserveRatio="true">
                     <image>
-                        <Image url="images.png" />
+                        <Image url="light.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="lux" layoutX="150" layoutY="260"> </Label>
+                <Label fx:id="lux" layoutX="100" layoutY="245">
+                    <font>
+                        <Font size="16" name="System bold"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="humIcon" fitWidth="30" fitHeight="30" layoutX="50" layoutY="280" pickOnBounds="false" preserveRatio="true">
+                    <image>
+                        <Image url="hum.png" />
+                    </image>
+                </ImageView>
+               <Label fx:id="hum" layoutX="100" layoutY="295" >
+                   <font>
+                       <Font size="16" name="System bold"/>
+                   </font>
+               </Label>
                 <Button fx:id="refresh" layoutX="300" layoutY="378" mnemonicParsing="false" onAction="#refresh">
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

@@ -1,12 +1,22 @@
-.graph.button{
+.graph{
     -fx-border-width: 0;
     -fx-background-radius: 0;
-    -fx-background-color: transparent;
+    -fx-background-color: lightgrey;
     -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 12; /* 12 */
     -fx-text-fill: black;
 }
-.c.button{
+.graph:pressed{
+    -fx-background-color: cornflowerblue;
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
+.graph:selected{
+    -fx-background-color: cornflowerblue;
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
+.c{
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
@@ -14,7 +24,15 @@
     -fx-font-size: 60; /* 12 */
     -fx-text-fill: black;
 }
-.f.button{
+.c:hover{
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 60; /* 12 */
+    -fx-text-fill: cornflowerblue;
+}
+.f{
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
@@ -22,15 +40,21 @@
     -fx-font-size: 60; /* 12 */
     -fx-text-fill: black;
 }
-.button:pressed {
+.f:hover{
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 60; /* 12 */
     -fx-text-fill: cornflowerblue;
 }
-.button:selected{
+.refresh{
+     -fx-border-width: 0;
+     -fx-background-radius: 0;
+     -fx-background-color: transparent;
+ }
+.refresh:selected{
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
-    -fx-text-fill: cornflowerblue;
 }
