@@ -1,14 +1,36 @@
-.button{
+.graph.button{
     -fx-border-width: 0;
     -fx-background-radius: 0;
-    -fx-background-color: lightgrey;
+    -fx-background-color: transparent;
     -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 12; /* 12 */
     -fx-text-fill: black;
 }
-
+.c.button{
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 60; /* 12 */
+    -fx-text-fill: black;
+}
+.f.button{
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 60; /* 12 */
+    -fx-text-fill: black;
+}
 .button:pressed {
     -fx-border-width: 0;
-    -fx-text-fill: black;
-    -fx-text: bold;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: cornflowerblue;
+}
+.button:selected{
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: cornflowerblue;
 }

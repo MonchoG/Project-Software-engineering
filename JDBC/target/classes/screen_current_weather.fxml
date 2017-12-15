@@ -28,31 +28,18 @@
                         <Font name="System bold" size="14" />
                     </font>
                 </Button>
-                <ImageView fitWidth="90.0" layoutX="100" layoutY="100" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitWidth="90.0" layoutX="80" layoutY="100" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="weatherIcon.png.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="temp" layoutX="200" layoutY="90">
+                <Label fx:id="temp" layoutX="180" layoutY="90">
                     <font>
                         <Font size="60" />
                     </font>
                 </Label>
-                <Button fx:id="c" layoutX="330" layoutY="90" mnemonicParsing="false" text="C">
-                    <font>
-                        <Font size="16" />
-                    </font>
-                </Button>
-                <Label layoutX="350" layoutY="89" text="|">
-                <font>
-                    <Font name="System bold" size="16" />
-                </font>
-                </Label>
-                <Button fx:id="f" layoutX="350" layoutY="90" mnemonicParsing="false" text="F">
-                    <font>
-                        <Font size="16" />
-                    </font>
-                </Button>
+                <Button fx:id="c" layoutX="200" layoutY="90" mnemonicParsing="false" text="F" ></Button>
+                <Button fx:id="f" layoutX="200" layoutY="90" mnemonicParsing="false" text="C"></Button>
                 <ImageView fitWidth="20.0" layoutX="120" layoutY="230" pickOnBounds="false" preserveRatio="true">
                     <image>
                         <Image url="indicator.png" />

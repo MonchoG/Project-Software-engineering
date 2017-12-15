@@ -40,31 +40,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBmanager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/DBmanager.java">
+      <file leaf-file-name="CurrentWeatherController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CurrentWeatherController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="280">
+              <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graph_screen.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/graph_screen.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="screen_current_weather_css.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="screen_current_weather_css.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather_css.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="24" />
+            <state relative-caret-position="-51">
+              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -73,22 +63,35 @@
       <file leaf-file-name="PopupController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/PopupController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
+            <state relative-caret-position="714">
               <caret line="48" column="41" lean-forward="true" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GraphsController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GraphsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GraphsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="278" column="13" lean-forward="false" selection-start-line="278" selection-start-column="13" selection-end-line="278" selection-end-column="13" />
+            <state relative-caret-position="323">
+              <caret line="277" column="59" lean-forward="true" selection-start-line="277" selection-start-column="10" selection-end-line="277" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="screen_current_weather.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="40" column="95" lean-forward="false" selection-start-line="40" selection-start-column="95" selection-end-line="40" selection-end-column="95" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
@@ -132,16 +135,16 @@
         <option value="$PROJECT_DIR$/src/main/java/Controllers/GraphsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/CurrentWeatherController.java" />
         <option value="$PROJECT_DIR$/src/main/java/WeatherStationGUI.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/screen_current_weather.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/CurrentWeatherController.java" />
         <option value="$PROJECT_DIR$/database.properties" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/PopupController.java" />
         <option value="$PROJECT_DIR$/src/main/java/AppMain.java" />
         <option value="$PROJECT_DIR$/src/main/resources/screen_graphs.fxml" />
-        <option value="$PROJECT_DIR$/src/main/resources/graph_screen.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/screen_current_weather_css.css" />
         <option value="$PROJECT_DIR$/src/main/java/GraphsController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/graph_screen.css" />
+        <option value="$PROJECT_DIR$/src/main/java/CurrentWeatherController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/screen_current_weather.fxml" />
+        <option value="$PROJECT_DIR$/src/main/resources/screen_current_weather_css.css" />
       </list>
     </option>
   </component>
@@ -373,15 +376,16 @@
       <updated>1512233442662</updated>
       <workItem from="1512233444100" duration="19704000" />
       <workItem from="1512317697584" duration="2006000" />
-      <workItem from="1513327510461" duration="3033000" />
+      <workItem from="1513327510461" duration="4985000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24743000" />
+    <option name="totallyTimeSpent" value="26695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -542,17 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="25" column="39" lean-forward="true" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -570,16 +563,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CurrentWeatherController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="62" column="10" lean-forward="false" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -600,22 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/graph_screen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather_css.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/screen_graphs.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -625,22 +592,6 @@
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/PopupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="48" column="41" lean-forward="true" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DBmanager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/DAO.java">
@@ -657,13 +608,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/graph_screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DBmanager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/PopupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="48" column="41" lean-forward="true" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CurrentWeatherController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="40" column="95" lean-forward="false" selection-start-line="40" selection-start-column="95" selection-end-line="40" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GraphsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="278" column="13" lean-forward="false" selection-start-line="278" selection-start-column="13" selection-end-line="278" selection-end-column="13" />
+        <state relative-caret-position="323">
+          <caret line="277" column="59" lean-forward="true" selection-start-line="277" selection-start-column="10" selection-end-line="277" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/screen_current_weather_css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

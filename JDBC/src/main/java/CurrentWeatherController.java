@@ -50,6 +50,8 @@ public class CurrentWeatherController {
      */
     private void initialize() {
         try {
+            c.setVisible(false);
+            f.setVisible(true);
             lastValue = (int) delay.getValue();
             cel = db.getTemp();
             fahr = cel + 32;
@@ -57,16 +59,20 @@ public class CurrentWeatherController {
             temp.setText(String.valueOf(cel) + "°");
             delay2.setText(df.format(delay.getValue() / 60000));
             if (last_was_fahr) {
-                temp.setText(String.valueOf(fahr) + "F");
-            } else temp.setText(String.valueOf(cel) + "C");
+                temp.setText(String.valueOf(fahr));
+            } else temp.setText(String.valueOf(cel));
 
             c.setOnAction(event -> {
+                c.setVisible(false);
+                f.setVisible(true);
                 last_was_fahr = false;
-                temp.setText(String.valueOf(cel) + "C");
+                temp.setText(String.valueOf(cel));
             });
             f.setOnAction(event -> {
+                c.setVisible(true);
+                f.setVisible(false);
                 last_was_fahr = true;
-                temp.setText(String.valueOf(fahr) + "F");
+                temp.setText(String.valueOf(fahr));
             });
             pres.setText(String.valueOf(db.getPressure() + " atm"));
             lux.setText(String.valueOf(db.getLight() + " lx"));

@@ -24,6 +24,12 @@
     -fx-text-fill: black;
     -fx-text: bold;
 }
+.toggle-button:disabled{
+    -fx-border-width: 0;
+    -fx-background-color: lightsteelblue;
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
 .toggle-button:selected{
     -fx-border-width: 0;
     -fx-background-color: lightsteelblue;
