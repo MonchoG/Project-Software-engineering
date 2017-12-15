@@ -26,6 +26,7 @@ public class PopupController {
     {
         Stage popupWindow=new Stage();
  //example
+
         popupWindow.initModality(Modality.APPLICATION_MODAL);
         popupWindow.setTitle("This is a pop up window");
 
@@ -41,9 +42,11 @@ public class PopupController {
 
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene1= new Scene(layout, 300, 250);
+        Scene popupScene= new Scene(layout, 300, 250);
 
-        popupWindow.setScene(scene1);
+        popupScene.getStylesheets().add(getClass().getResource("graph_screen.css").toExternalForm());
+
+        popupWindow.setScene(popupScene);
 
         popupWindow.showAndWait();
 

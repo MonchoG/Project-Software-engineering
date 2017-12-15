@@ -1,5 +1,4 @@
 .button{
-    -fx-border-color: black;
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: lightgrey;
@@ -8,7 +7,6 @@
     -fx-text-fill: black;
 }
 .toggle-button{
-    -fx-border-color: black;
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: lightgrey;
@@ -17,16 +15,18 @@
     -fx-text-fill: black;
 }
 .button:pressed {
+    -fx-border-width: 0;
     -fx-text-fill: black;
     -fx-text: bold;
 }
 .toggle-button:pressed{
-    -fx-background-color: hotpink;
+    -fx-background-color: cornflowerblue;
     -fx-text-fill: black;
     -fx-text: bold;
 }
 .toggle-button:selected{
-    -fx-background-color: pink;
+    -fx-border-width: 0;
+    -fx-background-color: lightsteelblue;
     -fx-text-fill: black;
     -fx-text: bold;
 }

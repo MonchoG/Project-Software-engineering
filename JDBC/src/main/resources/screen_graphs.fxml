@@ -32,10 +32,10 @@
             <ToggleButton fx:id="Light" layoutX="346" layoutY="10" onAction="#setLineChart" text="Light" />
             <ToggleButton fx:id="Humid" layoutX="473.0" layoutY="10" onAction="#setLineChart" text="Humidity" />
 
-                <Button fx:id="customDate" text="Custom" layoutX="360" layoutY="350" onAction="#customDate"></Button>
-                <ToggleButton fx:id ="rangeDay" layoutX="180" layoutY="350" prefWidth="60" text="Day" onAction="#dataRange" ></ToggleButton>
-                <ToggleButton fx:id ="rangeWeek" layoutX="240" layoutY="350" prefWidth="60" text="Week" onAction="#dataRange"></ToggleButton>
-                <ToggleButton fx:id ="rangeMonth" layoutX="300" layoutY="350" prefWidth="60" text="Month" onAction="#dataRange"></ToggleButton>
+                <Button fx:id="customDate" text="Custom" layoutX="360" layoutY="420" onAction="#customDate"></Button>
+                <ToggleButton fx:id ="rangeDay" layoutX="180" layoutY="420" prefWidth="60" text="Day" onAction="#dataRange" ></ToggleButton>
+                <ToggleButton fx:id ="rangeWeek" layoutX="240" layoutY="420" prefWidth="60" text="Week" onAction="#dataRange"></ToggleButton>
+                <ToggleButton fx:id ="rangeMonth" layoutX="300" layoutY="420" prefWidth="60" text="Month" onAction="#dataRange"></ToggleButton>
 
 
             </children>

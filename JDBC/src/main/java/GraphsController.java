@@ -1,14 +1,12 @@
 
-
+import java.sql.Timestamp;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ToggleButton;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.scene.control.ToggleGroup;
 
 
 public class GraphsController{
@@ -29,13 +27,15 @@ public class GraphsController{
     private ToggleButton Pres;
     @FXML
     private ToggleButton Humid;
-
     @FXML
     private ToggleButton rangeDay;
     @FXML
     private ToggleButton rangeWeek;
     @FXML
     private ToggleButton rangeMonth;
+
+    Timestamp endDate ;
+    Timestamp beginDate;
 
     //Creating connection without needing to open MySQL
     private DAO dbc = new DAO(DBmanager.getInstance());
@@ -272,21 +272,20 @@ public class GraphsController{
         rangeWeek.setToggleGroup(group);
         rangeMonth.setToggleGroup(group);
 
+
         rangeDay.setOnAction(e -> {
-            rangeDay.setSelected(true);
-            rangeWeek.setSelected(false);
-            rangeMonth.setSelected(false);
+
+            endDate=new Timestamp(System.currentTimeMillis());
+           // beginDate=new Timestamp(endDate.);
 
         });
         rangeWeek.setOnAction(e -> {
-            rangeDay.setSelected(false);
-            rangeWeek.setSelected(true);
-            rangeMonth.setSelected(false);
+
+            endDate=new Timestamp(System.currentTimeMillis());
         });
         rangeMonth.setOnAction(e -> {
-            rangeDay.setSelected(false);
-            rangeWeek.setSelected(false);
-            rangeMonth.setSelected(true);
+
+            endDate=new Timestamp(System.currentTimeMillis());
         });
     }
 

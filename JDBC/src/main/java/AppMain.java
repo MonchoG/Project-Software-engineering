@@ -28,9 +28,11 @@ public class AppMain extends Application {
         GraphsController graphsController = loader.getController();
 
         scene1 = new Scene(pane1, 400, 400);
-        scene2 = new Scene(pane2, 600, 400);
+        scene2 = new Scene(pane2, 600, 500);
 
         scene1.getStylesheets().add(getClass().getResource("screen_current_weather_css.css").toExternalForm());
+        scene2.getStylesheets().add(getClass().getResource("graph_screen.css").toExternalForm());
+
 
         currentWeatherController.setScene2(scene2);
         currentWeatherController.setMain(AppMain.this);
