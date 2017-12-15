@@ -30,6 +30,13 @@ public class GraphsController{
     @FXML
     private ToggleButton Humid;
 
+    @FXML
+    private ToggleButton rangeDay;
+    @FXML
+    private ToggleButton rangeWeek;
+    @FXML
+    private ToggleButton rangeMonth;
+
     //Creating connection without needing to open MySQL
     private DAO dbc = new DAO(DBmanager.getInstance());
 
@@ -252,6 +259,46 @@ public class GraphsController{
         humid.setName("Humidity (%)");
 
         return humid;
+    }
+
+    /**dataRange
+     * initializes ToggleGroup and adds rangeDay, rangeWeek, rangeMonth to it,
+     * sets action listeners for these buttons
+     */
+    @FXML
+    private void dataRange() {
+        ToggleGroup group = new ToggleGroup();
+        rangeDay.setToggleGroup(group);
+        rangeWeek.setToggleGroup(group);
+        rangeMonth.setToggleGroup(group);
+
+        rangeDay.setOnAction(e -> {
+            rangeDay.setSelected(true);
+            rangeWeek.setSelected(false);
+            rangeMonth.setSelected(false);
+
+        });
+        rangeWeek.setOnAction(e -> {
+            rangeDay.setSelected(false);
+            rangeWeek.setSelected(true);
+            rangeMonth.setSelected(false);
+        });
+        rangeMonth.setOnAction(e -> {
+            rangeDay.setSelected(false);
+            rangeWeek.setSelected(false);
+            rangeMonth.setSelected(true);
+        });
+    }
+
+    /**
+     * customDate
+     * initializes PopupController class and calls display method
+     */
+    @FXML
+    private void customDate() {
+        PopupController popupController=new PopupController();
+        popupController.display();
+
     }
 
     public void setMain(AppMain main){
