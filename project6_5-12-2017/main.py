@@ -13,17 +13,16 @@ import binascii
 
 lora = LoRa(mode=LoRa.LORAWAN)
 
+#credentials for the OTAA connection
 app_eui = binascii.unhexlify('70B3D57ED0008A37')
 app_key = binascii.unhexlify('A174D4D145F7ADB02A530F795E367CB7')
 
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
 
-# wait until the module has joined the network
-
-
 
 #py = Pysense()
 #mp = MPL3115A2(py,mode=ALTITUDE) # Returns height in meters. Mode may also be set to PRESSURE, returning a value in Pascals
+#the different sensors connected to their respective library. Si = humidity, lt = light, mp = pressure. li = acceleration
 si = SI7006A20()
 lt = LTR329ALS01()
 #li = LIS2HH12()
@@ -50,7 +49,7 @@ while True:
     #print(li.pitch())
 
 
-
+#detecting if lora has joined the network
     while not lora.has_joined():
         time.sleep(2.5)
         print('Not joined yet...')
