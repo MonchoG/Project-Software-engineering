@@ -6,13 +6,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
+import java.util.Date;
+
 /**
  * PopupController class
  * creates and shows popup window to custom date range settings
  */
 public class PopupController {
     private DAO dao;
-
+    private DatePicker beginDate;
+    private DatePicker endDate;
     public PopupController(){
         this.dao = new DAO(DBmanager.getInstance());
     }
@@ -28,17 +31,23 @@ public class PopupController {
  //example
 
         popupWindow.initModality(Modality.APPLICATION_MODAL);
-        popupWindow.setTitle("This is a pop up window");
+        popupWindow.setTitle("Custom Date");
 
-        Label label1= new Label("Pop up window now displayed");
 
-        Button button1= new Button("Close this pop up window");
+        Button button1= new Button("Apply settings");
 
         button1.setOnAction(e -> popupWindow.close());
 
+        Label label1 = new Label("Enter begin date");
+        DatePicker beginDate = new DatePicker();
+        this.beginDate = beginDate;
+
+        Label label2 = new Label("Enter end date");
+        DatePicker endDate = new DatePicker();
+
         VBox layout= new VBox(10);
 
-        layout.getChildren().addAll(label1, button1);
+        layout.getChildren().addAll(button1, label1, beginDate, label2, endDate);
 
         layout.setAlignment(Pos.CENTER);
 
@@ -50,6 +59,12 @@ public class PopupController {
 
         popupWindow.showAndWait();
 
+    }
+    public DatePicker getBeginDate(){
+        return beginDate;
+    }
+    public DatePicker getEndDate(){
+        return endDate;
     }
 
 }

@@ -1,4 +1,5 @@
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -36,7 +37,9 @@ public class GraphsController{
 
     Timestamp endDate ;
     Timestamp beginDate;
-
+    private int day = 86400000;
+    private long month = Long.parseUnsignedLong("2592000000");
+    private long week = 604800000;
     //Creating connection without needing to open MySQL
     private DAO dbc = new DAO(DBmanager.getInstance());
 
@@ -168,17 +171,33 @@ public class GraphsController{
     public XYChart.Series<Integer, Double> getLight(){
         //Creating graph for Light
         XYChart.Series<Integer, Double> light = new XYChart.Series<>();
-        light.getData().add(new XYChart.Data<>(0, 0.0));
-        light.getData().add(new XYChart.Data<>(1, 44.0));
-        light.getData().add(new XYChart.Data<>(2, 18.0));
-        light.getData().add(new XYChart.Data<>(3, 33.0));
-        light.getData().add(new XYChart.Data<>(4, 88.0));
-        light.getData().add(new XYChart.Data<>(5, 55.0));
-        light.getData().add(new XYChart.Data<>(6, 30.0));
-        light.getData().add(new XYChart.Data<>(7, 88.0));
-        light.getData().add(new XYChart.Data<>(8, 36.0));
-        light.getData().add(new XYChart.Data<>(9, 55.0));
 
+        if(rangeDay.isSelected()){
+            for(int i = 0; i <= 24; i++){
+                light.getData().add(new XYChart.Data<>(i, i+8.0));
+            }
+        }
+        else if(rangeWeek.isSelected()){
+            for(int i = 0; i <= 7; i++){
+                light.getData().add(new XYChart.Data<>(i, i*10.0));
+            }
+        }
+        else if(rangeMonth.isSelected()) {
+            for (int i = 0; i <= 30; i++) {
+                light.getData().add(new XYChart.Data<>(i, i + 5.0));
+            }
+        }else {
+            light.getData().add(new XYChart.Data<>(0, 0.0));
+            light.getData().add(new XYChart.Data<>(1, 44.0));
+            light.getData().add(new XYChart.Data<>(2, 18.0));
+            light.getData().add(new XYChart.Data<>(3, 33.0));
+            light.getData().add(new XYChart.Data<>(4, 88.0));
+            light.getData().add(new XYChart.Data<>(5, 55.0));
+            light.getData().add(new XYChart.Data<>(6, 30.0));
+            light.getData().add(new XYChart.Data<>(7, 88.0));
+            light.getData().add(new XYChart.Data<>(8, 36.0));
+            light.getData().add(new XYChart.Data<>(9, 55.0));
+        }
         //Setting Legend name
         light.setName("Light (lx)");
 
@@ -194,16 +213,34 @@ public class GraphsController{
     public XYChart.Series<Integer, Double> getTemp(){
         //Creating graph for Temp
         XYChart.Series<Integer, Double> temp = new XYChart.Series<>();
-        temp.getData().add(new XYChart.Data<>(0, 0.0));
-        temp.getData().add(new XYChart.Data<>(1, dbc.getTemp()));
-        temp.getData().add(new XYChart.Data<>(2, 3.0));
-        temp.getData().add(new XYChart.Data<>(3, 29.0));
-        temp.getData().add(new XYChart.Data<>(4, 15.0));
-        temp.getData().add(new XYChart.Data<>(5, 18.0));
-        temp.getData().add(new XYChart.Data<>(6, 25.0));
-        temp.getData().add(new XYChart.Data<>(7, 26.0));
-        temp.getData().add(new XYChart.Data<>(8, 18.0));
-        temp.getData().add(new XYChart.Data<>(9, 24.0));
+        if(rangeDay.isSelected()){
+            for(int i = 0; i <= 24; i++){
+                temp.getData().add(new XYChart.Data<>(i, i*2.0));
+            }
+        }
+        else if(rangeWeek.isSelected()){
+            for(int i = 0; i <= 7; i++){
+                temp.getData().add(new XYChart.Data<>(i, i*5.0));
+            }
+        }
+        else if(rangeMonth.isSelected()){
+            for(int i = 0; i <= 30; i++){
+                temp.getData().add(new XYChart.Data<>(i, 2*i+5.0));
+            }
+
+        }else{
+            temp.getData().add(new XYChart.Data<>(0, 0.0));
+            temp.getData().add(new XYChart.Data<>(1, dbc.getTemp()));
+            temp.getData().add(new XYChart.Data<>(2, 3.0));
+            temp.getData().add(new XYChart.Data<>(3, 29.0));
+            temp.getData().add(new XYChart.Data<>(4, 15.0));
+            temp.getData().add(new XYChart.Data<>(5, 18.0));
+            temp.getData().add(new XYChart.Data<>(6, 25.0));
+            temp.getData().add(new XYChart.Data<>(7, 26.0));
+            temp.getData().add(new XYChart.Data<>(8, 18.0));
+            temp.getData().add(new XYChart.Data<>(9, 24.0));
+        }
+
         //Setting Legend name
         temp.setName("Temp (°C)");
         return temp;
@@ -218,17 +255,35 @@ public class GraphsController{
     public XYChart.Series<Integer, Double> getPres(){
         //Creating graph for Pressure
         XYChart.Series<Integer, Double> pres = new XYChart.Series<>();
-        pres.getData().add(new XYChart.Data<>(0, 0.0));
-        pres.getData().add(new XYChart.Data<>(1, 88.0));
-        pres.getData().add(new XYChart.Data<>(2, 30.0));
-        pres.getData().add(new XYChart.Data<>(3, 40.0));
-        pres.getData().add(new XYChart.Data<>(4, 18.0));
-        pres.getData().add(new XYChart.Data<>(5, 33.0));
-        pres.getData().add(new XYChart.Data<>(6, 80.0));
-        pres.getData().add(new XYChart.Data<>(7, 44.0));
-        pres.getData().add(new XYChart.Data<>(8, 99.0));
-        pres.getData().add(new XYChart.Data<>(9, 25.0));
 
+        if(rangeDay.isSelected()){
+            for(int i = 0; i <= 24; i++){
+                pres.getData().add(new XYChart.Data<>(i, i*4.0));
+            }
+        }
+        else if(rangeWeek.isSelected()){
+            for(int i = 0; i <= 7; i++){
+                pres.getData().add(new XYChart.Data<>(i, i*8.0));
+            }
+        }
+        else if(rangeMonth.isSelected()){
+            for(int i = 0; i <= 30; i++){
+                pres.getData().add(new XYChart.Data<>(i, 2*i+20.0));
+            }
+
+        }else {
+
+            pres.getData().add(new XYChart.Data<>(0, 0.0));
+            pres.getData().add(new XYChart.Data<>(1, 88.0));
+            pres.getData().add(new XYChart.Data<>(2, 30.0));
+            pres.getData().add(new XYChart.Data<>(3, 40.0));
+            pres.getData().add(new XYChart.Data<>(4, 18.0));
+            pres.getData().add(new XYChart.Data<>(5, 33.0));
+            pres.getData().add(new XYChart.Data<>(6, 80.0));
+            pres.getData().add(new XYChart.Data<>(7, 44.0));
+            pres.getData().add(new XYChart.Data<>(8, 99.0));
+            pres.getData().add(new XYChart.Data<>(9, 25.0));
+        }
         //Setting Legend name
         pres.setName("Pressure (atm)");
 
@@ -244,17 +299,34 @@ public class GraphsController{
     public XYChart.Series<Integer, Double> getHumid(){
         //Creating graph for Pressure
         XYChart.Series<Integer, Double> humid = new XYChart.Series<>();
-        humid.getData().add(new XYChart.Data<>(0, -50.0));
-        humid.getData().add(new XYChart.Data<>(1, 25.0));
-        humid.getData().add(new XYChart.Data<>(2, 44.0));
-        humid.getData().add(new XYChart.Data<>(3, 53.0));
-        humid.getData().add(new XYChart.Data<>(4, 28.0));
-        humid.getData().add(new XYChart.Data<>(5, 33.0));
-        humid.getData().add(new XYChart.Data<>(6, 39.0));
-        humid.getData().add(new XYChart.Data<>(7, 42.0));
-        humid.getData().add(new XYChart.Data<>(8, 28.0));
-        humid.getData().add(new XYChart.Data<>(9, 88.0));
 
+        if(rangeDay.isSelected()){
+            for(int i = 0; i <= 24; i++){
+                humid.getData().add(new XYChart.Data<>(i, i*3.0));
+            }
+        }
+        else if(rangeWeek.isSelected()){
+            for(int i = 0; i <= 7; i++){
+                humid.getData().add(new XYChart.Data<>(i, i*6.0));
+            }
+        }
+        else if(rangeMonth.isSelected()){
+            for(int i = 0; i <= 30; i++){
+                humid.getData().add(new XYChart.Data<>(i, 3*i+10.0));
+            }
+
+        }else {
+            humid.getData().add(new XYChart.Data<>(0, -50.0));
+            humid.getData().add(new XYChart.Data<>(1, 25.0));
+            humid.getData().add(new XYChart.Data<>(2, 44.0));
+            humid.getData().add(new XYChart.Data<>(3, 53.0));
+            humid.getData().add(new XYChart.Data<>(4, 28.0));
+            humid.getData().add(new XYChart.Data<>(5, 33.0));
+            humid.getData().add(new XYChart.Data<>(6, 39.0));
+            humid.getData().add(new XYChart.Data<>(7, 42.0));
+            humid.getData().add(new XYChart.Data<>(8, 28.0));
+            humid.getData().add(new XYChart.Data<>(9, 88.0));
+        }
         //Setting Legend name
         humid.setName("Humidity (%)");
 
@@ -272,27 +344,58 @@ public class GraphsController{
         rangeWeek.setToggleGroup(group);
         rangeMonth.setToggleGroup(group);
 
-
-        rangeDay.setOnAction(e -> {
-
+        if(rangeDay.isSelected()) {
             endDate=new Timestamp(System.currentTimeMillis());
-           // beginDate=new Timestamp(endDate.);
+            beginDate = new Timestamp(System.currentTimeMillis()-day);
+            System.out.println(endDate);
+            System.out.println(beginDate);
+            xAxis.setUpperBound(24);
+            xAxis.setLabel("Hours");
+            setLineChart();
+            rangeDay.setDisable(true);
+            rangeWeek.setDisable(false);
+            rangeWeek.setSelected(false);
+            rangeMonth.setDisable(false);
+            rangeMonth.setSelected(false);
 
-        });
-        rangeWeek.setOnAction(e -> {
-
+        };
+        if(rangeWeek.isSelected()) {
             endDate=new Timestamp(System.currentTimeMillis());
-        });
-        rangeMonth.setOnAction(e -> {
+            beginDate = new Timestamp(System.currentTimeMillis()-week);
+            System.out.println(endDate);
+            System.out.println(beginDate);
+            xAxis.setUpperBound(7);
+            xAxis.setLabel("Days");
+            setLineChart();
+            rangeDay.setDisable(false);
+            rangeDay.setSelected(false);
+            rangeWeek.setDisable(true);
+            rangeMonth.setDisable(false);
+            rangeMonth.setSelected(false);
 
+        };
+        if(rangeMonth.isSelected()){
             endDate=new Timestamp(System.currentTimeMillis());
-        });
+            beginDate = new Timestamp(System.currentTimeMillis() - month);
+            System.out.println(endDate);
+            System.out.println(beginDate);
+            xAxis.setUpperBound(30);
+            xAxis.setLabel("Days");
+            setLineChart();
+            rangeDay.setDisable(false);
+            rangeDay.setSelected(false);
+            rangeWeek.setDisable(false);
+            rangeWeek.setSelected(false);
+            rangeMonth.setDisable(true);
+        };
+
     }
 
     /**
      * customDate
      * initializes PopupController class and calls display method
      */
+
     @FXML
     private void customDate() {
         PopupController popupController=new PopupController();
@@ -310,5 +413,4 @@ public class GraphsController{
     public void pressButton2() {
         main.setScene(scene1);
     }
-
 }

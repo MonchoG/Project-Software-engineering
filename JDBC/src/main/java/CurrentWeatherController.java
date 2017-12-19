@@ -16,10 +16,6 @@ public class CurrentWeatherController {
     private AppMain main;
 
     @FXML
-    private Button graph;
-    @FXML
-    private Button refresh;
-    @FXML
     private Label time;
     public Label temp;
     @FXML
@@ -54,12 +50,6 @@ public class CurrentWeatherController {
      */
     private void initialize() {
         try {
-            //here we set stylesheets for each element
-            c.getStyleClass().add("f");
-            f.getStyleClass().add("c");
-            graph.getStyleClass().add("graph");
-            refresh.getStyleClass().add("refresh");
-
             c.setVisible(false);
             f.setVisible(true);
             lastValue = (int) delay.getValue();
@@ -68,18 +58,21 @@ public class CurrentWeatherController {
             time.setText(db.getTime());
             temp.setText(String.valueOf(cel) + "°");
             delay2.setText(df.format(delay.getValue() / 60000));
+            if (last_was_fahr) {
+                temp.setText(String.valueOf(fahr));
+            } else temp.setText(String.valueOf(cel));
 
             c.setOnAction(event -> {
                 c.setVisible(false);
                 f.setVisible(true);
                 last_was_fahr = false;
-                temp.setText(String.valueOf(cel)+ "°");
+                temp.setText(String.valueOf(cel));
             });
             f.setOnAction(event -> {
                 c.setVisible(true);
                 f.setVisible(false);
                 last_was_fahr = true;
-                temp.setText(String.valueOf(fahr)+ "°");
+                temp.setText(String.valueOf(fahr));
             });
             pres.setText(String.valueOf(db.getPressure() + " atm"));
             lux.setText(String.valueOf(db.getLight() + " lx"));
