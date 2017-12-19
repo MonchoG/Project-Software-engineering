@@ -13,20 +13,20 @@ import time
 import binascii
 
 lora = LoRa(mode=LoRa.LORAWAN)
-
+#credentials to connect to the lora network
 app_eui = binascii.unhexlify('70B3D57ED0008A37')
 app_key = binascii.unhexlify('A174D4D145F7ADB02A530F795E367CB7')
 
 lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
 
-# wait until the module has joined the network
+
 
 
 
 #py = Pysense()
 #mp = MPL3115A2(py,mode=ALTITUDE) # Returns height in meters. Mode may also be set to PRESSURE, returning a value in Pascals
-si = SI7006A20()
-lt = LTR329ALS01()
+si = SI7006A20() #humidity 
+lt = LTR329ALS01() 
 #li = LIS2HH12()
 mp = MPL3115A2()
 
@@ -40,14 +40,14 @@ while True:
     temp1= (temp & 0xFF00) >> 8
     temp2= (temp & 0x00FF)
 
-    light=round(si.light())
+    light=round(si.light()) # split the data in multiple packages. 1 package can only contain 255 bits of data.
     light1= (int) ((light & 0xff0000)>>16)
     light2= (int) ((light & 0x00ff00)>>8)
     light3= (int) (light & 0x0000ff)
 
 
 
-    press=round(mp.pressure())
+    press=round(mp.pressure()) #split the data in multiple packages. bar will be measured with decimal points
     press1= (int) ((press & 0xff0000)>>16)
     press2= (int) ((press & 0x00ff00)>>8)
     press3= (int) (press & 0x0000ff)
@@ -57,7 +57,7 @@ while True:
 
 
 
-    print("temperature", (temp-273))
+    print("temperature", (temp-273)) #temp is internally measured in celcius but convert to kelvin to make minus 0 measurement available
     print("hum",hum)
     print("light",light)
     print("presure",press)
@@ -78,10 +78,4 @@ while True:
     s.setblocking(False)
     #a=round(si.temperature())
     s.send(bytes([temp1,temp2, hum , light1,light2,light3, press1, press2, press3]))
-    #time.sleep(1.5)
-    #s.send(bytes([0,hum]))
-    #time.sleep(1.5)
-    #s.send(bytes([3,light1,light2]))
-    #time.sleep(1.5)
-    #s.send(bytes([200,press1,press2,press3]))
     time.sleep(50)
