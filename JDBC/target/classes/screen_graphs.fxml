@@ -20,22 +20,22 @@
                 </Button>
                 <LineChart fx:id="lineChart" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="500.0">
                     <xAxis>
-                        <NumberAxis fx:id="xAxis" label="Date" upperBound="9" tickUnit="1" autoRanging="false"  />
+                        <NumberAxis autoRanging="false" label="Date" minorTickCount="1" tickUnit="1" style="-fx-background-color: transparent;" styleClass="popup.scc" stylesheets="@popup.css" tickLabelFill="white" upperBound="9" fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis fx:id="yAxis" label="Data" side="LEFT" upperBound="30.0" />
+                        <NumberAxis fx:id="yAxis" label="Data" side="LEFT" tickLabelFill="white" upperBound="30.0" />
                     </yAxis>
                 </LineChart>
                 <DatePicker layoutX="213.0" layoutY="70.0" visible="false" />
-            <ToggleButton fx:id="Temp" layoutX="389.0" layoutY="10.0" onAction="#setLineChart" text="Temperature" />
-            <ToggleButton fx:id="Pres" layoutX="285" layoutY="10" onAction="#setLineChart" text="Pressure" />
-            <ToggleButton fx:id="Light" layoutX="346" layoutY="10" onAction="#setLineChart" text="Light" />
-            <ToggleButton fx:id="Humid" layoutX="473.0" layoutY="10" onAction="#setLineChart" text="Humidity" />
+            <ToggleButton fx:id="temp" layoutX="389.0" layoutY="10.0" onAction="#setLineChart" text="Temperature" />
+            <ToggleButton fx:id="pres" layoutX="285" layoutY="10" onAction="#setLineChart" text="Pressure" />
+            <ToggleButton fx:id="light" layoutX="346" layoutY="10" onAction="#setLineChart" text="Light" />
+            <ToggleButton fx:id="humid" layoutX="473.0" layoutY="10" onAction="#setLineChart" text="Humidity" />
 
-                <Button fx:id="custom" text="Custom" layoutX="360" layoutY="420" onAction="#customDate"></Button>
-                <ToggleButton fx:id ="rangeDay" layoutX="180" layoutY="420" prefWidth="60" text="Day" onAction="#dataRange" ></ToggleButton>
-                <ToggleButton fx:id ="rangeWeek" layoutX="240" layoutY="420" prefWidth="60" text="Week" onAction="#dataRange"></ToggleButton>
-                <ToggleButton fx:id ="rangeMonth" layoutX="300" layoutY="420" prefWidth="60" text="Month" onAction="#dataRange"></ToggleButton>
+                <Button fx:id="custom" layoutX="360" layoutY="420" onAction="#customDate" text="Custom" />
+                <ToggleButton fx:id="rangeDay" layoutX="180" layoutY="420" onAction="#dataRange" prefWidth="60" text="Day" />
+                <ToggleButton fx:id="rangeWeek" layoutX="240" layoutY="420" onAction="#dataRange" prefWidth="60" text="Week" />
+                <ToggleButton fx:id="rangeMonth" layoutX="300" layoutY="420" onAction="#dataRange" prefWidth="60" text="Month" />
 
 
             </children>

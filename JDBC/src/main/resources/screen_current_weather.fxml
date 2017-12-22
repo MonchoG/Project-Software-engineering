@@ -3,8 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -13,56 +11,30 @@
     <children>
         <AnchorPane prefHeight="500.0" prefWidth="400.0">
             <children>
-                <Label layoutX="30.0" layoutY="380.0" text="Last measurement: ">
+                <Label layoutX="50.0" layoutY="380.0" text="Updated: " textFill="white">
                     <font>
                         <Font name="Space Mono" size="14" />
                     </font>
                 </Label>
-                <Label fx:id="time" layoutX="160" layoutY="380">
+                <Label fx:id="time" layoutX="160" layoutY="380" textFill="white">
                     <font>
                         <Font size="14" />
                     </font>
                 </Label>
-                <Button fx:id="btn_msg" layoutX="320" layoutY="0" mnemonicParsing="false" onAction="#graph" text="Graph &gt;">
-                    <font>
-                        <Font name="System bold" size="14" />
-                    </font>
+                <Button fx:id="graph" layoutX="320" layoutY="10" mnemonicParsing="false" onAction="#graph" text="Graph &gt;">
                 </Button>
-                <ImageView fitWidth="90.0" layoutX="80" layoutY="100" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="weatherIcon.png.png" />
-                    </image>
-                </ImageView>
-                <Label fx:id="temp" layoutX="180" layoutY="90">
-                    <font>
-                        <Font size="60" />
-                    </font>
-                </Label>
-                <Button fx:id="c" layoutX="200" layoutY="90" mnemonicParsing="false" text="F" ></Button>
-                <Button fx:id="f" layoutX="200" layoutY="90" mnemonicParsing="false" text="C"></Button>
-                <ImageView fitWidth="20.0" layoutX="120" layoutY="230" pickOnBounds="false" preserveRatio="true">
-                    <image>
-                        <Image url="indicator.png" />
-                    </image>
-                </ImageView>
-                <Label fx:id="pres" layoutX="150" layoutY="230"> </Label>
-                <ImageView fitWidth="20" layoutX="120" layoutY="260" pickOnBounds="false" preserveRatio="true">
-                    <image>
-                        <Image url="images.png" />
-                    </image>
-                </ImageView>
-                <Label fx:id="lux" layoutX="150" layoutY="260"> </Label>
-                <Button fx:id="refresh" layoutX="300" layoutY="378" mnemonicParsing="false" onAction="#refresh">
-                    <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="refresh.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Label fx:id="delay2" layoutX="150" layoutY="310"> </Label>
-            <Slider fx:id="delay" blockIncrement="30000.0" layoutX="120.0" layoutY="327.0" majorTickUnit="180000.0" max="300000.0" min="60000.0" minorTickCount="180000" onMouseDragged="#slider_drag" onMouseReleased="#slider_release" />
+
+                <Label fx:id="temp" layoutX="100" layoutY="90"/>
+                <Button fx:id="c" layoutX="230" layoutY="70" mnemonicParsing="false" text="F" />
+                <Button fx:id="f" layoutX="230" layoutY="70" mnemonicParsing="false" text="C" />
+
+                <Label text="Pressure:" layoutX="70" layoutY="230" textFill="white"/>
+                <Label text="Light:" layoutX="70" layoutY="260" textFill="white"/>
+                <Label fx:id="pres" layoutX="150" layoutY="230" textFill="white"> </Label>
+                <Label fx:id="lux" layoutX="150" layoutY="260" textFill="white"> </Label>
+                <Label text="Update every:" layoutX="70.0" layoutY="327.0" textFill="white"/>
+                <Label fx:id="delay2" layoutX="290" layoutY="327.0" textFill="white"> </Label>
+            <Slider fx:id="delay" blockIncrement="30000.0" layoutX="150.0" layoutY="327.0" majorTickUnit="180000.0" max="300000.0" min="60000.0" minorTickCount="180000" onMouseDragged="#slider_drag" onMouseReleased="#slider_release" />
             </children>
         </AnchorPane>
     </children>

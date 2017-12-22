@@ -7,17 +7,19 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class AppMain extends Application {
-    Stage window;
-    Scene scene1, scene2;
-    private Pane pane1;
-    private Pane pane2;
+    private Stage window;
+
     public static void main(String[] args) {
         Application.launch(args);
     }
     @Override
     public void start(Stage stage) throws Exception {
+        Scene scene1, scene2;
+        Pane pane1;
+        Pane pane2;
         FXMLLoader loader = new FXMLLoader();
         window = stage;
+        window.setResizable(false );
         loader.setLocation(AppMain.class.getResource("screen_current_weather.fxml"));
         pane1 = loader.load();
         CurrentWeatherController currentWeatherController = loader.getController();

@@ -27,13 +27,13 @@ public class GraphsController{
     @FXML
     private LineChart<Integer, Double> lineChart;
     @FXML
-    private ToggleButton Temp;
+    private ToggleButton temp;
     @FXML
-    private ToggleButton Light;
+    private ToggleButton light;
     @FXML
-    private ToggleButton Pres;
+    private ToggleButton pres;
     @FXML
-    private ToggleButton Humid;
+    private ToggleButton humid;
     @FXML
     private ToggleButton rangeDay;
     @FXML
@@ -68,9 +68,12 @@ public class GraphsController{
      */
 
     public void initialize(){
-        lineChart.getData().set(getTemp());
+        lineChart.getData().setAll(getTemp());
         //Temperature is default shown on graph
-
+        temp.setSelected(true);
+        light.setSelected(false);
+        pres.setSelected(false);
+        humid.setSelected(false);
     }
 
     /**
@@ -80,13 +83,13 @@ public class GraphsController{
 
     public void setLineChart(){
         //Checking Temperature button
-        if(Temp.isSelected()){
+        if(temp.isSelected()){
             //Checking Light button
-            if(Light.isSelected()){
+            if(light.isSelected()){
                 //Checking Pressure button
-                if(Pres.isSelected()){
+                if(pres.isSelected()){
                     //Checking Humidity button
-                    if(Humid.isSelected()){
+                    if(humid.isSelected()){
                         //All four variables are selected
                         lineChart.getData().setAll(getTemp(), getLight(), getPres(), getHumid());
                     }
@@ -96,7 +99,7 @@ public class GraphsController{
                     }
                 }
                 //Checking Humidity button
-                else if(Humid.isSelected()){
+                else if(humid.isSelected()){
                     //Temperature, Light and Humidity are selected
                     lineChart.getData().setAll(getTemp(), getLight(), getHumid());
                 }
@@ -106,9 +109,9 @@ public class GraphsController{
                 }
             }
             //Checking Pressure button
-            else if(Pres.isSelected()){
+            else if(pres.isSelected()){
                 //Checking Humidity button
-                if(Humid.isSelected()){
+                if(humid.isSelected()){
                     //Temperature, Pressure and Humidity are selected
                     lineChart.getData().setAll(getTemp(), getPres(), getHumid());
                 }
@@ -119,7 +122,7 @@ public class GraphsController{
             }
             else{
                 //Checking Humidity button
-                if(Humid.isSelected()){
+                if(humid.isSelected()){
                     //Temperature and Humidity are selected
                     lineChart.getData().setAll(getTemp(), getHumid());
                 }
@@ -131,11 +134,11 @@ public class GraphsController{
         }
 
         //Checking Light button
-        else if(Light.isSelected()){
+        else if(light.isSelected()){
             //Checking Pressure button
-            if(Pres.isSelected()){
+            if(pres.isSelected()){
                 //Checking Humidity button
-                if(Humid.isSelected()){
+                if(humid.isSelected()){
                     //Light, Pressure and Humidity are selected
                     lineChart.getData().setAll(getLight(), getPres(), getHumid());
                 }
@@ -144,7 +147,7 @@ public class GraphsController{
                     lineChart.getData().setAll(getLight(), getPres());
                 }
             }
-            else if(Humid.isSelected()){
+            else if(humid.isSelected()){
                 //Light and Humidity are selected
                 lineChart.getData().setAll(getLight(), getHumid());
             }
@@ -155,9 +158,9 @@ public class GraphsController{
         }
 
         //Checking Pressure button
-        else if(Pres.isSelected()){
+        else if(pres.isSelected()){
             //Checking Humidity button
-            if(Humid.isSelected()){
+            if(humid.isSelected()){
                 //Pressure and Humidity are selected
                 lineChart.getData().setAll(getPres(), getHumid());
             }
@@ -168,7 +171,7 @@ public class GraphsController{
 
         }
         //Checking Humidity button
-        else if(Humid.isSelected()){
+        else if(humid.isSelected()){
             //Only Humidity is selected
             lineChart.getData().setAll(getHumid());
         }
@@ -195,7 +198,7 @@ public class GraphsController{
         }
         else if(rangeDay.isSelected()){
             for(int i = 0; i < lightDay.size(); i++){
-              light.getData().add(new XYChart.Data<>(i, lightDay.get(i)));
+                light.getData().add(new XYChart.Data<>(i, lightDay.get(i)));
             }
 
         }
@@ -388,7 +391,7 @@ public class GraphsController{
 
             xAxis.setLowerBound(0);
             xAxis.setUpperBound(24);
-            xAxis.setLabel("Hours");
+            xAxis.setLabel("Hours ago");
             rangeDay.setDisable(true);
             rangeWeek.setDisable(false);
             rangeWeek.setSelected(false);
@@ -404,7 +407,7 @@ public class GraphsController{
             humidWeek = dbc.getWeek("humidity");
             xAxis.setLowerBound(0);
             xAxis.setUpperBound(7);
-            xAxis.setLabel("Days");
+            xAxis.setLabel("Days ago");
             rangeDay.setDisable(false);
             rangeDay.setSelected(false);
             rangeWeek.setDisable(true);
@@ -421,7 +424,7 @@ public class GraphsController{
             humidMonth = dbc.getWeek("humidity");
             xAxis.setLowerBound(0);
             xAxis.setUpperBound(30);
-            xAxis.setLabel("Days");
+            xAxis.setLabel("Days ago");
             rangeDay.setDisable(false);
             rangeDay.setSelected(false);
             rangeWeek.setDisable(false);
@@ -448,6 +451,7 @@ public class GraphsController{
             presCustom = dbc.getCustom("pressure");
             lightCustom = dbc.getCustom("light");
             humidCustom = dbc.getCustom("humidity");
+
             rangeDay.setDisable(false);
             rangeDay.setSelected(false);
             rangeWeek.setDisable(false);
@@ -458,6 +462,37 @@ public class GraphsController{
             double end = Double.parseDouble(dbc.getEndDate().substring(8, 10));
             xAxis.setLowerBound(begin);
             xAxis.setUpperBound(end);
+            int month = Integer.parseInt(dbc.getBeginDate().substring(5, 7));
+            String monthString;
+            switch (month){
+                case 1: monthString = "January";
+                        break;
+                case 2: monthString = "February";
+                    break;
+                case 3: monthString = "March";
+                    break;
+                case 4: monthString = "April";
+                    break;
+                case 5: monthString = "May";
+                    break;
+                case 6: monthString = "June";
+                    break;
+                case 7: monthString = "July";
+                    break;
+                case 8: monthString = "August";
+                    break;
+                case 9: monthString = "September";
+                    break;
+                case 10: monthString = "October";
+                    break;
+                case 11: monthString = "November";
+                    break;
+                case 12: monthString = "December";
+                    break;
+                default: monthString = "Days";
+                    break;
+            }
+            xAxis.setLabel(monthString);
             setLineChart();
         }else{
             System.out.println("Invalid value has been entered");

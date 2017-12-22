@@ -1,8 +1,6 @@
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * DAO class
@@ -85,32 +83,6 @@ public class DAO {
         }
         return weather;
     }
-
-    /**
-     * get Time
-     * getter for the timestamp
-     *
-     * @return returns the last measurement timestamp
-     */
-
-    protected String getTime() {
-        String time = null;
-        statement = null;
-
-        try {
-            String sql = "SELECT timeAndDate from measurements order by timeAndDate desc limit 1;";
-            statement = connection.createStatement();
-
-            ResultSet result = statement.executeQuery(sql);
-            if (result.next()) {
-                time = result.getString("timeAndDate");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
-
     /**
      * getDay
      * Gets all measurements of last day and puts them in an ArrayList
@@ -445,6 +417,31 @@ public class DAO {
         }
         return customArray;
     }
+    /**
+     * get Time
+     * getter for the timestamp
+     *
+     * @return returns the last measurement timestamp
+     */
+
+    protected String getTime() {
+        String time = null;
+        statement = null;
+
+        try {
+            String sql = "SELECT timeAndDate from measurements order by timeAndDate desc limit 1;";
+            statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                time = result.getString("timeAndDate");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
 
     /**
      * getTemp
@@ -452,7 +449,6 @@ public class DAO {
      *
      * @return returns the last measurement temperature
      */
-
     protected double getTemp() {
         double temp = 0;
         statement = null;
@@ -522,4 +518,5 @@ public class DAO {
         }
         return pressure;
     }
+
 }
