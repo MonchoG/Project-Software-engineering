@@ -13,12 +13,11 @@ import java.util.Date;
  * creates and shows popup window to custom date range settings
  */
 public class PopupController {
-    private DAO dao;
-    private DatePicker beginDate;
-    private DatePicker endDate;
-    public PopupController(){
-        this.dao = new DAO(DBmanager.getInstance());
-    }
+
+    private String beginDate;
+    private String endDate;
+    private int beginDay;
+
 
     /**display
      * initializes popUp window and adds all elements to it and creates events
@@ -39,15 +38,16 @@ public class PopupController {
         button1.setOnAction(e -> popupWindow.close());
 
         Label label1 = new Label("Enter begin date");
-        DatePicker beginDate = new DatePicker();
-        this.beginDate = beginDate;
+        DatePicker begin = new DatePicker();
 
         Label label2 = new Label("Enter end date");
-        DatePicker endDate = new DatePicker();
+        DatePicker end = new DatePicker();
+
+
 
         VBox layout= new VBox(10);
 
-        layout.getChildren().addAll(button1, label1, beginDate, label2, endDate);
+        layout.getChildren().addAll(button1, label1, begin, label2, end);
 
         layout.setAlignment(Pos.CENTER);
 
@@ -59,12 +59,24 @@ public class PopupController {
 
         popupWindow.showAndWait();
 
+        Date date = new Date();
+        String currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        String beginDate = begin.getValue() + " " + currentTime;
+        String endDate = end.getValue() + " " + currentTime;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        if(begin.getValue() != null) {
+            this.beginDay = begin.getValue().getDayOfMonth();
+        }
     }
-    public DatePicker getBeginDate(){
+    public String getBeginDate(){
         return beginDate;
     }
-    public DatePicker getEndDate(){
+    public String getEndDate(){
         return endDate;
+    }
+    public int getBeginDay(){
+        return beginDay;
     }
 
 }

@@ -20,7 +20,7 @@
                 </Button>
                 <LineChart fx:id="lineChart" layoutX="20.0" layoutY="100.0" prefHeight="300.0" prefWidth="500.0">
                     <xAxis>
-                        <NumberAxis fx:id="xAxis" label="Date" minorTickCount="1" upperBound="9" autoRanging="false"  />
+                        <NumberAxis fx:id="xAxis" label="Date" upperBound="9" tickUnit="1" autoRanging="false"  />
                     </xAxis>
                     <yAxis>
                         <NumberAxis fx:id="yAxis" label="Data" side="LEFT" upperBound="30.0" />
@@ -32,7 +32,7 @@
             <ToggleButton fx:id="Light" layoutX="346" layoutY="10" onAction="#setLineChart" text="Light" />
             <ToggleButton fx:id="Humid" layoutX="473.0" layoutY="10" onAction="#setLineChart" text="Humidity" />
 
-                <Button fx:id="customDate" text="Custom" layoutX="360" layoutY="420" onAction="#customDate"></Button>
+                <Button fx:id="custom" text="Custom" layoutX="360" layoutY="420" onAction="#customDate"></Button>
                 <ToggleButton fx:id ="rangeDay" layoutX="180" layoutY="420" prefWidth="60" text="Day" onAction="#dataRange" ></ToggleButton>
                 <ToggleButton fx:id ="rangeWeek" layoutX="240" layoutY="420" prefWidth="60" text="Week" onAction="#dataRange"></ToggleButton>
                 <ToggleButton fx:id ="rangeMonth" layoutX="300" layoutY="420" prefWidth="60" text="Month" onAction="#dataRange"></ToggleButton>

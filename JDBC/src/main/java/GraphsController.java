@@ -1,11 +1,19 @@
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.CancellationException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
@@ -14,8 +22,6 @@ public class GraphsController{
 
     private Scene scene1;
     private AppMain main;
-    @FXML
-    private NumberAxis yAxis;
     @FXML
     private NumberAxis xAxis;
     @FXML
@@ -34,14 +40,27 @@ public class GraphsController{
     private ToggleButton rangeWeek;
     @FXML
     private ToggleButton rangeMonth;
-
-    Timestamp endDate ;
-    Timestamp beginDate;
-    private int day = 86400000;
-    private long month = Long.parseUnsignedLong("2592000000");
-    private long week = 604800000;
-    //Creating connection without needing to open MySQL
+    private int index;
+    private PopupController pc = new PopupController();
     private DAO dbc = new DAO(DBmanager.getInstance());
+    //Getting all arrayLists
+    private ArrayList<Double> temperatureDay;
+    private ArrayList<Double> temperatureWeek;
+    private ArrayList<Double> temperatureMonth;
+    private ArrayList<Double> temperatureCustom;
+    private ArrayList<Double> lightDay;
+    private ArrayList<Double> lightWeek;
+    private ArrayList<Double> lightMonth;
+    private ArrayList<Double> lightCustom;
+    private ArrayList<Double> presDay;
+    private ArrayList<Double> presWeek;
+    private ArrayList<Double> presMonth;
+    private ArrayList<Double> presCustom;
+    private ArrayList<Double> humidDay;
+    private ArrayList<Double> humidWeek;
+    private ArrayList<Double> humidMonth;
+    private ArrayList<Double> humidCustom;
+    private boolean customDate;
 
     /**
      * Setting default graph on Temperature
@@ -49,11 +68,9 @@ public class GraphsController{
      */
 
     public void initialize(){
-        lineChart.getData().setAll(getTemp());
+        lineChart.getData().set(getTemp());
         //Temperature is default shown on graph
-        Temp.setSelected(true);
-        Light.setSelected(false);
-        Pres.setSelected(false);
+
     }
 
     /**
@@ -159,7 +176,6 @@ public class GraphsController{
             //None are selected
             lineChart.getData().setAll();
         }
-
     }
 
     /**
@@ -168,26 +184,32 @@ public class GraphsController{
      * @return Light XYChart with all data in it
      */
 
-    public XYChart.Series<Integer, Double> getLight(){
+    private XYChart.Series<Integer, Double> getLight(){
         //Creating graph for Light
         XYChart.Series<Integer, Double> light = new XYChart.Series<>();
-
-        if(rangeDay.isSelected()){
-            for(int i = 0; i <= 24; i++){
-                light.getData().add(new XYChart.Data<>(i, i+8.0));
+        if(customDate){
+            for(int i = 0; i < lightCustom.size(); i++){
+                index = dbc.getBeginDay();
+                light.getData().add(new XYChart.Data<>(index+i, lightCustom.get(i)));
             }
         }
+        else if(rangeDay.isSelected()){
+            for(int i = 0; i < lightDay.size(); i++){
+              light.getData().add(new XYChart.Data<>(i, lightDay.get(i)));
+            }
+
+        }
         else if(rangeWeek.isSelected()){
-            for(int i = 0; i <= 7; i++){
-                light.getData().add(new XYChart.Data<>(i, i*10.0));
+            for(int i = 0; i < lightWeek.size(); i++){
+                light.getData().add(new XYChart.Data<>(i, lightWeek.get(i)));
             }
         }
         else if(rangeMonth.isSelected()) {
-            for (int i = 0; i <= 30; i++) {
-                light.getData().add(new XYChart.Data<>(i, i + 5.0));
+            for (int i = 0; i < lightMonth.size(); i++) {
+                light.getData().add(new XYChart.Data<>(i, lightMonth.get(i)));
             }
         }else {
-            light.getData().add(new XYChart.Data<>(0, 0.0));
+            light.getData().add(new XYChart.Data<>(0, dbc.getLight()));
             light.getData().add(new XYChart.Data<>(1, 44.0));
             light.getData().add(new XYChart.Data<>(2, 18.0));
             light.getData().add(new XYChart.Data<>(3, 33.0));
@@ -210,25 +232,31 @@ public class GraphsController{
      * @return Temperature XYChart with all data in it
      */
 
-    public XYChart.Series<Integer, Double> getTemp(){
+    private XYChart.Series<Integer, Double> getTemp(){
         //Creating graph for Temp
         XYChart.Series<Integer, Double> temp = new XYChart.Series<>();
-        if(rangeDay.isSelected()){
-            for(int i = 0; i <= 24; i++){
-                temp.getData().add(new XYChart.Data<>(i, i*2.0));
+        if(customDate){
+            for(int i = 0; i < temperatureCustom.size(); i++){
+                index = dbc.getBeginDay();
+                temp.getData().add(new XYChart.Data<>(index+i, temperatureCustom.get(i)));
+            }
+        }
+        else if(rangeDay.isSelected()){
+            for(int i = 0; i < temperatureDay.size(); i++){
+                temp.getData().add(new XYChart.Data<>(i, temperatureDay.get(i)));
             }
         }
         else if(rangeWeek.isSelected()){
-            for(int i = 0; i <= 7; i++){
-                temp.getData().add(new XYChart.Data<>(i, i*5.0));
+            for(int i = 0; i < temperatureWeek.size(); i++){
+                temp.getData().add(new XYChart.Data<>(i, temperatureWeek.get(i)));
             }
         }
         else if(rangeMonth.isSelected()){
-            for(int i = 0; i <= 30; i++){
-                temp.getData().add(new XYChart.Data<>(i, 2*i+5.0));
+            for(int i = 0; i < temperatureMonth.size(); i++){
+                temp.getData().add(new XYChart.Data<>(i, temperatureMonth.get(i)));
             }
-
         }else{
+
             temp.getData().add(new XYChart.Data<>(0, 0.0));
             temp.getData().add(new XYChart.Data<>(1, dbc.getTemp()));
             temp.getData().add(new XYChart.Data<>(2, 3.0));
@@ -252,29 +280,33 @@ public class GraphsController{
      * @return Pressure XYChart with all data in it
      */
 
-    public XYChart.Series<Integer, Double> getPres(){
+    private XYChart.Series<Integer, Double> getPres(){
         //Creating graph for Pressure
         XYChart.Series<Integer, Double> pres = new XYChart.Series<>();
-
-        if(rangeDay.isSelected()){
-            for(int i = 0; i <= 24; i++){
-                pres.getData().add(new XYChart.Data<>(i, i*4.0));
+        if(customDate){
+            for(int i = 0; i < presCustom.size(); i++){
+                index = dbc.getBeginDay();
+                pres.getData().add(new XYChart.Data<>(index+i, presCustom.get(i)));
+            }
+        }
+        else if(rangeDay.isSelected()){
+            for(int i = 0; i < presDay.size(); i++){
+                pres.getData().add(new XYChart.Data<>(i, presDay.get(i)));
             }
         }
         else if(rangeWeek.isSelected()){
-            for(int i = 0; i <= 7; i++){
-                pres.getData().add(new XYChart.Data<>(i, i*8.0));
+            for(int i = 0; i < presWeek.size(); i++){
+                pres.getData().add(new XYChart.Data<>(i, presWeek.get(i)));
             }
         }
-        else if(rangeMonth.isSelected()){
-            for(int i = 0; i <= 30; i++){
-                pres.getData().add(new XYChart.Data<>(i, 2*i+20.0));
+        else if(rangeMonth.isSelected()) {
+            for (int i = 0; i < presMonth.size(); i++) {
+                pres.getData().add(new XYChart.Data<>(i, presMonth.get(i)));
             }
-
         }else {
 
             pres.getData().add(new XYChart.Data<>(0, 0.0));
-            pres.getData().add(new XYChart.Data<>(1, 88.0));
+            pres.getData().add(new XYChart.Data<>(1, dbc.getPressure()));
             pres.getData().add(new XYChart.Data<>(2, 30.0));
             pres.getData().add(new XYChart.Data<>(3, 40.0));
             pres.getData().add(new XYChart.Data<>(4, 18.0));
@@ -296,23 +328,28 @@ public class GraphsController{
      * @return Humidity XYChart with all data in it
      */
 
-    public XYChart.Series<Integer, Double> getHumid(){
+    private XYChart.Series<Integer, Double> getHumid(){
         //Creating graph for Pressure
         XYChart.Series<Integer, Double> humid = new XYChart.Series<>();
-
-        if(rangeDay.isSelected()){
+        if(customDate){
+            for(int i = 0; i < humidCustom.size(); i++){
+                index = dbc.getBeginDay();
+                humid.getData().add(new XYChart.Data<>(index+i, humidCustom.get(i)));
+            }
+        }
+        else if(rangeDay.isSelected()){
             for(int i = 0; i <= 24; i++){
-                humid.getData().add(new XYChart.Data<>(i, i*3.0));
+                humid.getData().add(new XYChart.Data<>(i, humidDay.get(i)));
             }
         }
         else if(rangeWeek.isSelected()){
             for(int i = 0; i <= 7; i++){
-                humid.getData().add(new XYChart.Data<>(i, i*6.0));
+                humid.getData().add(new XYChart.Data<>(i, humidWeek.get(i)));
             }
         }
         else if(rangeMonth.isSelected()){
             for(int i = 0; i <= 30; i++){
-                humid.getData().add(new XYChart.Data<>(i, 3*i+10.0));
+                humid.getData().add(new XYChart.Data<>(i, humidMonth.get(i)));
             }
 
         }else {
@@ -343,52 +380,56 @@ public class GraphsController{
         rangeDay.setToggleGroup(group);
         rangeWeek.setToggleGroup(group);
         rangeMonth.setToggleGroup(group);
-
         if(rangeDay.isSelected()) {
-            endDate=new Timestamp(System.currentTimeMillis());
-            beginDate = new Timestamp(System.currentTimeMillis()-day);
-            System.out.println(endDate);
-            System.out.println(beginDate);
+            temperatureDay = dbc.getDay("temperature");
+            lightDay = dbc.getDay("light");
+            presDay = dbc.getDay("pressure");
+            humidDay = dbc.getDay("humidity");
+
+            xAxis.setLowerBound(0);
             xAxis.setUpperBound(24);
             xAxis.setLabel("Hours");
-            setLineChart();
             rangeDay.setDisable(true);
             rangeWeek.setDisable(false);
             rangeWeek.setSelected(false);
             rangeMonth.setDisable(false);
             rangeMonth.setSelected(false);
-
+            customDate = false;
+            setLineChart();
         };
         if(rangeWeek.isSelected()) {
-            endDate=new Timestamp(System.currentTimeMillis());
-            beginDate = new Timestamp(System.currentTimeMillis()-week);
-            System.out.println(endDate);
-            System.out.println(beginDate);
+            temperatureWeek = dbc.getWeek("temperature");
+            lightWeek = dbc.getWeek("light");
+            presWeek = dbc.getWeek("pressure");
+            humidWeek = dbc.getWeek("humidity");
+            xAxis.setLowerBound(0);
             xAxis.setUpperBound(7);
             xAxis.setLabel("Days");
-            setLineChart();
             rangeDay.setDisable(false);
             rangeDay.setSelected(false);
             rangeWeek.setDisable(true);
             rangeMonth.setDisable(false);
             rangeMonth.setSelected(false);
+            customDate = false;
+            setLineChart();
 
         };
         if(rangeMonth.isSelected()){
-            endDate=new Timestamp(System.currentTimeMillis());
-            beginDate = new Timestamp(System.currentTimeMillis() - month);
-            System.out.println(endDate);
-            System.out.println(beginDate);
+            temperatureMonth = dbc.getMonth("temperature");
+            lightMonth = dbc.getMonth("light");
+            presMonth = dbc.getMonth("pressure");
+            humidMonth = dbc.getWeek("humidity");
+            xAxis.setLowerBound(0);
             xAxis.setUpperBound(30);
             xAxis.setLabel("Days");
-            setLineChart();
             rangeDay.setDisable(false);
             rangeDay.setSelected(false);
             rangeWeek.setDisable(false);
             rangeWeek.setSelected(false);
             rangeMonth.setDisable(true);
+            customDate = false;
+            setLineChart();
         };
-
     }
 
     /**
@@ -398,8 +439,30 @@ public class GraphsController{
 
     @FXML
     private void customDate() {
-        PopupController popupController=new PopupController();
-        popupController.display();
+        dbc.custom();
+        if(dbc.getBeginDate().charAt(0) != 'n' && dbc.getEndDate().charAt(0) != 'n' ) {
+            index = pc.getBeginDay();
+            customDate = true;
+
+            temperatureCustom = dbc.getCustom("temperature");
+            presCustom = dbc.getCustom("pressure");
+            lightCustom = dbc.getCustom("light");
+            humidCustom = dbc.getCustom("humidity");
+            rangeDay.setDisable(false);
+            rangeDay.setSelected(false);
+            rangeWeek.setDisable(false);
+            rangeWeek.setSelected(false);
+            rangeMonth.setDisable(false);
+            rangeMonth.setSelected(false);
+            double begin = Double.parseDouble(dbc.getBeginDate().substring(8, 10));
+            double end = Double.parseDouble(dbc.getEndDate().substring(8, 10));
+            xAxis.setLowerBound(begin);
+            xAxis.setUpperBound(end);
+            setLineChart();
+        }else{
+            System.out.println("Invalid value has been entered");
+        }
+
 
     }
 

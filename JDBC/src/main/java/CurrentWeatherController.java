@@ -104,7 +104,7 @@ public class CurrentWeatherController {
     public void slider_release() throws InterruptedException {
 
         Timer timer = new Timer();
-        int delay1 = (int) delay.getValue() / 60;
+        int delay1 = (int) delay.getValue();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

@@ -14,10 +14,10 @@ public class Test {
             if (in.equals("quit")) bol = false;
             else cdb.getWeather();
         }
-        cdb.getWeather();
-        cdb.getTime();
-        cdb.getTemp();
-        cdb.getLight();
-        cdb.getPressure();
+        //cdb.getWeather();
+        //cdb.getTime();
+        //cdb.getTemp();
+        //cdb.getLight();
+        //cdb.getPressure();
     }
 }
