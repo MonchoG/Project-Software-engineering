@@ -78,7 +78,7 @@ public class CurrentWeatherController {
                 else temp.setText(String.valueOf(fahr) + "°");
             }
 
-
+            
             c.setOnAction(event -> {
                 c.setVisible(false);
                 f.setVisible(true);
