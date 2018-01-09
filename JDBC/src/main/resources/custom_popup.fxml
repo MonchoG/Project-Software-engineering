@@ -8,12 +8,12 @@
     <children>
         <VBox>
             <children>
-                <DatePicker fx:id="beginDate">
+                <DatePicker fx:id="begin">
 
                 </DatePicker>
             </children>
         </VBox>
-          <DatePicker fx:id="endDate" layoutX="-7.0" layoutY="77.0">
+          <DatePicker fx:id="end" layoutX="-7.0" layoutY="77.0">
 
                 </DatePicker>
     </children>
