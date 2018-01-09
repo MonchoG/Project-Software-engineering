@@ -18,12 +18,13 @@ import java.util.Date;
  * creates and shows popup window to custom date range settings
  */
 public class PopupController {
-    @FXML
+    
     private String beginDate;
-    @FXML
     private String endDate;
     private int beginDay;
+    @FXML
     private DatePicker begin;
+    @FXML
     private DatePicker end;
 
 
