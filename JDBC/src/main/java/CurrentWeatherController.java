@@ -123,7 +123,7 @@ public class CurrentWeatherController {
     }
 
     public void slider_release() throws InterruptedException {
-
+        //scales the timer based to the user input for refreshing the database input
         Timer timer = new Timer();
         int delay1 = (int) delay.getValue();
         timer.schedule(new TimerTask() {
