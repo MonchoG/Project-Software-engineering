@@ -58,18 +58,19 @@ public class CurrentWeatherController {
             temp.getStyleClass().add("temp");
 
             lastValue = (int) delay.getValue();
+            //convert temperature to fahrenheit so we can measure below 0 degree celsius  
             cel = db.getTemp();
             fahr = cel + 32;
             time.setText(db.getTime());
 
             delay2.setText(df.format(delay.getValue() / 60000) + " min");
-
+            //check if the user wants the temperature in fahrenheit or in celsius
             if (!last_was_fahr) {
                 c.setVisible(false);
                 f.setVisible(true);
                 if (cel > 0) temp.setText("+" + String.valueOf(cel) + "°");
                 else temp.setText(String.valueOf(cel) + "°");
-
+            //display the celsius
             } else {
                 c.setVisible(true);
                 f.setVisible(false);
