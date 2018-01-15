@@ -1,6 +1,9 @@
 import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import static jdk.nashorn.internal.objects.Global.Infinity;
 
 /**
  * DAO class
@@ -15,6 +18,7 @@ public class DAO {
     private String beginDate;
     private String endDate;
     private int beginDay;
+    private double NaN = -Infinity;
 
     /**
      * DAO constructor
@@ -83,6 +87,7 @@ public class DAO {
         }
         return weather;
     }
+
     /**
      * getDay
      * Gets all measurements of last day and puts them in an ArrayList
@@ -91,18 +96,18 @@ public class DAO {
      * @return ArrayList full with measurements of last day
      */
 
-    protected ArrayList<Double> getDay(String value) {
-        ArrayList<Double> dayArray = new ArrayList<>();
+    protected double[] getDay(String value) {
+        double[] dayArray = new double[25];
         try {
             //Selecting the measurements from last day, showing a measurement per hour
-            String sql = "SELECT CAST(timeAndDate AS Date) as Day,\n" +
+            String sql = "SELECT CAST(timeAndDate AS Date) as Date,\n" +
                     "extract(hour FROM timeAndDate) as hour,\n" +
                     "AVG(temperature) as temperature,\n" +
                     "AVG(light) as light,\n" +
                     "AVG(pressure) as pressure,\n" +
                     "AVG(humidity) as humidity\n" +
                     "FROM measurements\n" +
-                    "WHERE timeAndDate > (NOW() - INTERVAL 24 hour)\n" +
+                    "WHERE timeAndDate > (NOW() - INTERVAL 1 day)\n" +
                     "GROUP BY CAST(TimeAndDate AS Date) ,\n" +
                     "extract(hour FROM timeAndDate)\n" +
                     "ORDER By timeAndDate desc ;";
@@ -112,60 +117,67 @@ public class DAO {
 
 
             //check for a measurement
-            if(!result.next()){
-                for(int i = 0; i <= 24; i++){
-                    dayArray.add(0.0);
+            if (!result.next()) {
+                for (int i = 0; i <= 24; i++) {
+                    dayArray[i] = NaN;
                 }
                 return dayArray;
             }
-
             //beginTime
             int i = result.getInt("hour");
             //endTime (in this case equal to the beginTime)
             int end = i;
             boolean zero = false;
+            int count = 0;
+            int index = 0;
             //go back so it doesn't skip this measurement in the while loop
             result.previous();
-            while(result.next()) {
+            while (result.next() && index <= 24) {
+
                 //Check if zero has been reached, if so go back to 24 hours
-                if(i == 0){
-                    i = 24;
-                    zero = true;
+                if (i == -1) {
+                    if (!zero) {
+                        i = 23;
+                        zero = true;
+                    }
                 }
                 //check if a measurement is on that hour
-                if(i == result.getInt("hour")) {
-                    dayArray.add(result.getDouble(value));
-                }else{
+                if (i == result.getInt("hour")) {
+                    dayArray[index] = (result.getDouble(value));
+                } else {
                     //if not then add 0 to that day
-                    dayArray.add(0.0);
+                    dayArray[index] = NaN;
                     //no values have been added so stay at the same value
                     result.previous();
                 }
                 i--;
+                index++;
             }
-            if(zero){
+            if (zero) {
                 //add zeros from last measurement until the endTime
-                while(i >= end){
-                    dayArray.add(0.0);
+                while (i >= end && index <= 24) {
+                    dayArray[index] = NaN;
                     i--;
+                    index++;
                 }
-            }else{
+            } else {
                 //add zeroes from last measurement until zero
-                while(i >= 0){
-                    dayArray.add(0.0);
+                while (i >= 0 && index <= 24) {
+                    dayArray[index] = NaN;
                     i--;
+                    index++;
                 }
                 //set the index to 24 and then add zeros from 24 until the endTime
                 i = 24;
-                while (i >= end){
-                    dayArray.add(0.0);
+                while (i >= end && index <= 24) {
+                    dayArray[index] = NaN;
                     i--;
+                    index++;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return dayArray;
     }
 
@@ -177,8 +189,8 @@ public class DAO {
      * @return ArrayList full with measurements of last week
      */
 
-    protected ArrayList<Double> getWeek(String value){
-        ArrayList<Double> weekArray = new ArrayList<>();
+    protected double[] getWeek(String value) {
+        double[] weekArray = new double[8];
         try {
             //Selecting the measurements from last week, showing a measurement per day
             String sql = "SELECT CAST(timeAndDate AS Date) as Date,\n" +
@@ -195,9 +207,9 @@ public class DAO {
             statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
             //check for a measurement
-            if(!result.next()){
-                for(int i = 0; i <= 24; i++){
-                    weekArray.add(0.0);
+            if (!result.next()) {
+                for (int i = 0; i <= 7; i++) {
+                    weekArray[i] = NaN;
                 }
                 return weekArray;
             }
@@ -205,47 +217,55 @@ public class DAO {
             //beginDay
             int i = result.getInt("day");
             //endDay
-            int end = i-7;
-            //if end is negative then substract it from 30
-            if(end < 0){
-                end += 30;
+            int end = i - 7;
+            //if end is negative then substract it from 31
+            if (end <= 0) {
+                end += 31;
             }
+            int index = 0;
             //go back so it doesn't skip this measurement in the while loop
             result.previous();
-            while(result.next()) {
+            while (result.next() && index <= 7) {
                 //Check if zero has been reached, if so go back to 30 days
-                if(i == 0){
-                    i = 30;
-                    zero = true;
+                if (i == 0) {
+                    if (!zero) {
+                        i = 31;
+                        zero = true;
+                    }
                 }
                 //Check if there is a measurement on that day
-                if(i == result.getInt("day")) {
-                    weekArray.add(result.getDouble(value));
-                }else{
+                if (i == result.getInt("day")) {
+                    weekArray[index] = (result.getDouble(value));
+                } else {
                     //if not then add 0 to that day
-                    weekArray.add(0.0);
+                    weekArray[index] = (NaN);
                     //no values have been added so stay at the same value
                     result.previous();
                 }
                 i--;
+                index++;
+
             }
-            if(zero){
+            if (!zero) {
                 //add zeros from last measurement until the endDay
-                while(i >= end){
-                    weekArray.add(0.0);
+                while (i >= end && index <= 7) {
+                    weekArray[index] = (NaN);
                     i--;
+                    index++;
                 }
-            }else{
+            } else {
                 //add zeroes from last measurement until zero
-                while(i >= 0){
-                    weekArray.add(0.0);
+                while (i >= 0 && index <= 7) {
+                    weekArray[index] = (NaN);
                     i--;
+                    index++;
                 }
-                //set the index to 30 and then add zeros from 30 until the endDay
-                i = 30;
-                while(i >= end){
-                    weekArray.add(0.0);
+                //set the index to 7 and then add zeros from 7 until the endDay
+                i = 31;
+                while (i >= end && index <= 7) {
+                    weekArray[index] = (NaN);
                     i--;
+                    index++;
                 }
             }
         } catch (SQLException e) {
@@ -262,8 +282,8 @@ public class DAO {
      * @return ArrayList full with measurements of last month
      */
 
-    protected ArrayList<Double> getMonth(String value){
-        ArrayList<Double> monthArray = new ArrayList<>();
+    protected double[] getMonth(String value) {
+        double[] monthArray = new double[32];
         try {
             //Selecting the measurements from last month, showing a measurement per day
             String sql = "SELECT CAST(timeAndDate AS Date) as Date,\n" +
@@ -274,60 +294,68 @@ public class DAO {
                     "AVG(humidity) as humidity\n" +
                     "FROM measurements\n" +
                     "WHERE timeAndDate > (NOW() - INTERVAL 30 day)\n" +
-                    "GROUP BY CAST(TimeAndDate AS Date),\n" +
+                    "GROUP BY CAST(timeAndDate AS Date),\n" +
                     "extract(day FROM timeAndDate)\n" +
                     "ORDER By timeAndDate desc ;";
             statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
+
             //check for a measurement
-            if(!result.next()){
-                for(int i = 0; i <= 24; i++){
-                    monthArray.add(0.0);
+            if (!result.next()) {
+                for (int i = 0; i <= 30; i++) {
+                    monthArray[i] = (NaN);
                 }
                 return monthArray;
             }
             //beginDay
+            result.next();
             int i = result.getInt("day");
             //endDay
             int end = i;
             boolean zero = false;
+            int index = 0;
             //go back so it doesn't skip this measurement in the while loop
             result.previous();
-            while(result.next()) {
+            while (result.next()) {
                 //Check if zero has been reached, if so go back to 30 days
-                if(i == 0){
-                    i = 30;
-                    zero = true;
-
-                }
+                if (i == 0) {
+                    if(!zero) {
+                        i = 31;
+                        zero = true;
+                    }
+                };
                 //Check if there is a measurement on that day
-                if(i == result.getInt("day")) {
-                    monthArray.add(result.getDouble(value));
-                }else{
+                if (i == result.getInt("day")) {
+                    monthArray[index] = (result.getDouble(value));
+                } else {
                     //if not then add 0 to that day
-                    monthArray.add(0.0);
+                    monthArray[index] = (NaN);
                     //no values have been added so stay at the same value
                     result.previous();
                 }
                 i--;
+                index++;
             }
-            if(zero){
+            if (zero) {
                 //add zeros from last measurement until the endDay
-                while(i >= end){
-                    monthArray.add(0.0);
+                while (i >= end) {
+                    monthArray[index] = (NaN);
                     i--;
+                    index++;
                 }
-            }else{
+            } else {
                 //add zeroes from last measurement until zero
-                while(i >= 0){
-                    monthArray.add(0.0);
+                while (i >= 0) {
+                    monthArray[index] = (NaN);
                     i--;
+                    index++;
                 }
                 //set the index to 30 and then add zeros from 30 until the endDay
                 i = 30;
-                while (i >= end){
-                    monthArray.add(0.0);
+                while (i >= end) {
+                    monthArray[index] = (NaN);
                     i--;
+                    index++;
                 }
             }
         } catch (SQLException e) {
@@ -336,29 +364,33 @@ public class DAO {
         return monthArray;
     }
 
-    protected String getBeginDate(){
+    protected String getBeginDate() {
         return beginDate;
     }
-    protected String getEndDate(){
+
+    protected String getEndDate() {
         return endDate;
     }
-    protected void custom(){
+
+    protected void custom() {
         PopupController pc = new PopupController();
         pc.display();
         beginDate = pc.getBeginDate();
         endDate = pc.getEndDate();
 
     }
-    protected int getBeginDay(){
+
+    protected int getBeginDay() {
         return beginDay;
     }
-    protected ArrayList<Double> getCustom(String value){
+
+    protected ArrayList<Double> getCustom(String value) {
         ArrayList<Double> customArray = new ArrayList<>();
         String beginDay = getBeginDate().substring(8, 10);
         String endDay = getEndDate().substring(8, 10);
         this.beginDay = Integer.parseInt(beginDay);
 
-        try{
+        try {
 
             String sql = "SELECT CAST(timeAndDate AS Date) as Date,\n" +
                     "extract(day FROM timeAndDate) as day,\n" +
@@ -374,7 +406,8 @@ public class DAO {
             statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
             //check for the last measurement
-            if(getBeginDate().charAt(0) !=  'n' && getEndDate().charAt(0) != 'n'){ result.next();
+            if (getBeginDate().charAt(0) != 'n' && getEndDate().charAt(0) != 'n') {
+                result.next();
                 //beginDay
                 int i = Integer.parseInt(beginDay);
                 //endDay
@@ -384,39 +417,40 @@ public class DAO {
                 result.previous();
 
                 while (result.next()) {
-                    if(i == 30){
+                    if (i == 30) {
                         i = 0;
                         zero += 1;
                     }
                     if (i == result.getInt("day")) {
                         customArray.add(result.getDouble(value));
                     } else {
-                        customArray.add(0.0);
+                        customArray.add(NaN);
                         result.previous();
                     }
                     i++;
 
                 }
-                while(zero > 0){
-                    while(i <= 0){
-                        customArray.add(0.0);
+                while (zero > 0) {
+                    while (i <= 0) {
+                        customArray.add(NaN);
                         i++;
                     }
                     zero--;
                 }
                 i = 0;
-                while(i <= end){
-                    customArray.add(0.0);
+                while (i <= end) {
+                    customArray.add(NaN);
                     i++;
                 }
-            }else{
+            } else {
                 return customArray;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return customArray;
     }
+
     /**
      * get Time
      * getter for the timestamp
