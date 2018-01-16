@@ -52,7 +52,7 @@ while True:
 #detecting if lora has joined the network
     while not lora.has_joined():
         time.sleep(2.5)
-        print('Not joined yet...')
+        print('Not joined yet...') 
 
     print('Network joined!')
     import socket
