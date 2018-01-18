@@ -1,8 +1,6 @@
 import java.sql.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
 /**
@@ -46,52 +44,8 @@ public class DAO {
 
 
     /**
-     * getWeather method
-     *
-     * @return arraylist with the data from the database
-     * <p>
-     * it extracts the data we mentioned in the select statement
-     */
-
-    protected ArrayList<String> getWeather() {
-        ArrayList<String> weather = new ArrayList<String>();
-        statement = null;
-
-        try {
-            String sql = "SELECT timeAndDate, temperature, light, pressure from measurements;";
-            statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-
-                String time = resultSet.getString("timeAndDate");
-                String temp = resultSet.getString("temperature");
-                String light = resultSet.getString("light");
-                String pres = resultSet.getString("pressure");
-
-                weather.add(String.format("%-20.20s  %-20.20s %-20.20s %-20.20s", time, temp, light, pres));
-            }
-//            System.out.println("Time             Temperature             Light           Pressure ");
-//            for (String s : weather) {
-//                System.out.println(s);
-//            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) statement.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-        return weather;
-    }
-
-    /**
      * getDay
-     * Gets all measurements of last day and puts them in an ArrayList
-     *
+     * Gets all measurements of last day and puts them in an Array
      * @param value value obtained from the database
      * @return ArrayList full with measurements of last day
      */
@@ -183,10 +137,9 @@ public class DAO {
 
     /**
      * getWeek
-     * Gets all measurements of last week and puts them in an ArrayList
-     *
+     * Gets all measurements of last week and puts them in an Array
      * @param value value obtained from the database
-     * @return ArrayList full with measurements of last week
+     * @return Array full with measurements of last week
      */
 
     protected double[] getWeek(String value) {
@@ -277,10 +230,10 @@ public class DAO {
 
     /**
      * getMonth
-     * Gets all measurements of last week and puts them in an ArrayList
+     * Gets all measurements of last week and puts them in an Array
      *
      * @param value value obtained from the database
-     * @return ArrayList full with measurements of last month
+     * @return Array full with measurements of last month
      */
 
     protected double[] getMonth(String value) {
@@ -378,12 +331,18 @@ public class DAO {
         pc.display();
         beginDate = pc.getBeginDate();
         endDate = pc.getEndDate();
-
     }
 
     protected int getBeginDay() {
         return beginDay;
     }
+
+    /**
+     * getCustom
+     * method to get all values between chosen dates
+     * @param value value obtained from database
+     * @return Arraylist with param value in it
+     */
 
     protected ArrayList<Double> getCustom(String value) {
         ArrayList<Double> customArray = new ArrayList<>();
@@ -484,6 +443,7 @@ public class DAO {
      *
      * @return returns the last measurement temperature
      */
+
     protected double getTemp() {
         double temp = 0;
         statement = null;
@@ -535,6 +495,7 @@ public class DAO {
      *
      * @return returns the last measurement pressure
      */
+
     protected double getPressure() {
         double pressure = 0;
         statement = null;

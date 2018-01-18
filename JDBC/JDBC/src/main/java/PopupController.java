@@ -35,6 +35,7 @@ public class PopupController {
      * when popup is shown user can pick the date range manually using two datePickers, which stand for
      * beginning and end date.
      */
+
     public void display() {
         Stage popupWindow = new Stage();
         popupWindow.setResizable(false);
@@ -43,6 +44,7 @@ public class PopupController {
         popupWindow.setTitle("Custom Date");
 
         Button apply_settings = new Button("Apply settings");
+        apply_settings.getStyleClass().add("apply");
         apply_settings.getStyleClass().add("set");
 
 

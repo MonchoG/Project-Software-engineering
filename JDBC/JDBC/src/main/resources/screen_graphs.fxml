@@ -71,7 +71,7 @@
                 <Label fx:id="day_7" layoutX="160" layoutY="325" text="7"/>
                 <Label fx:id="day_10" layoutX="200" layoutY="325" text="10"/>
                 <Label fx:id="day_13" layoutX="244" layoutY="325" text="13" />
-                <Label fx:id="day_16" layoutX="286" layoutY="325" text="16"/>
+                <Label fx:id="day_16" layoutX="288" layoutY="325" text="16"/>
                 <Label fx:id="day_19" layoutX="328" layoutY="325" text="19"/>
                 <Label fx:id="day_22" layoutX="373" layoutY="325" text="22"/>
                 <Label fx:id="day_25" layoutX="414" layoutY="325" text="25"/>

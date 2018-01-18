@@ -12,9 +12,7 @@ public class Test {
         while (bol){
              in = keyboard.next();
             if (in.equals("quit")) bol = false;
-            else cdb.getWeather();
         }
-        cdb.getWeather();
         cdb.getTime();
         cdb.getTemp();
         cdb.getLight();

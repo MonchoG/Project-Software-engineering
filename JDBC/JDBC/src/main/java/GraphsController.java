@@ -1,29 +1,18 @@
-
-import java.math.BigInteger;
-import java.sql.Array;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.CancellationException;
-import java.util.zip.Inflater;
-
-import com.sun.prism.impl.ps.CachingEllipseRep;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
 
 public class GraphsController{
+
+    @FXML
+    private Button back;
 
     private Scene scene1;
     private AppMain main;
@@ -45,6 +34,8 @@ public class GraphsController{
     private ToggleButton rangeWeek;
     @FXML
     private ToggleButton rangeMonth;
+    @FXML
+    private ToggleButton custom;
     @FXML
     private Label week_0;
     @FXML
@@ -103,10 +94,9 @@ public class GraphsController{
     private Label day_31;
 
     private int index;
-    private boolean week_enabled = false;
     private PopupController pc = new PopupController();
     private DAO dbc = new DAO(DBmanager.getInstance());
-    //Getting all arrayLists
+    //Creating arrays for all data
     private double[] temperatureDay = new double[25];
     private double[] temperatureWeek = new double[8];
     private double[] temperatureMonth = new double[32];
@@ -131,6 +121,7 @@ public class GraphsController{
      */
 
     public void initialize(){
+        back.getStyleClass().add("back");
         rangeDay.setSelected(true);
         rangeDay.setDisable(true);
 
@@ -140,8 +131,6 @@ public class GraphsController{
         pres.setSelected(false);
         humid.setSelected(false);
         dataRange();
-
-
     }
 
     /**
@@ -326,46 +315,13 @@ public class GraphsController{
         } else if (rangeDay.isSelected()) {
             int count = 0;
             for (int i = (temperatureDay.length-1); i >= 0; i--) {
-                int j = i;
-                //int k = i;
-                if(temperatureDay[j] == -Infinity){
+                if(temperatureDay[i] == -Infinity){
                         count++;
-
-                    //double temp1;
-                    /*if(j == -1){
-                        temp1 = 0;
-                    }else {
-                        temp1 = temperatureDay[j];
-                    }
-                    double temp2;
-                    while(temperatureDay[k] == -Infinity){
-                        if(k == 25){
-                            break;
-                        }
-                        k++;
-                    }
-                    /*if(k == 25) {
-                        temp2 = 0;
-                    }else {
-                        temp2 = temperatureDay[k];
-                    }
-                    System.out.println("temp1 " + temp1 + "\ntemp2 " + temp2);
-                    if(temp1 == 0){
-                        temp.getData().add(new XYChart.Data<>(count, temp2));
-                    }else if(temp2 == 0) {
-                        temp.getData().add(new XYChart.Data<>(count, temp1));
-                    }else{
-                        temp.getData().add(new XYChart.Data<>(count, (temp1+temp2)/2));
-                    }
-
-                    //count++;*/
                 }else {
                     temp.getData().add(new XYChart.Data<>(count, temperatureDay[i]));
                     count++;
                 }
-
             }
-
         } else if (rangeWeek.isSelected()) {
             int count = 0;
             for (int i = temperatureWeek.length - 1; i >= 0; i--) {
@@ -390,12 +346,14 @@ public class GraphsController{
             //Setting Legend name
             temp.setName("Temp (°C)");
             return temp;
-        /**
-         * Creating a XYChart
-         * Adding all values into the graph
-         * @return Pressure XYChart with all data in it
-         */
     }
+
+    /**
+     * Creating a XYChart
+     * Adding all values into the graph
+     * @return Pressure XYChart with all data in it
+     */
+
     private XYChart.Series<Integer, Double> getPres() {
             //Creating graph for Pressure
             XYChart.Series<Integer, Double> pres = new XYChart.Series<>();
@@ -441,7 +399,6 @@ public class GraphsController{
             }
             //Setting Legend name
             pres.setName("Pressure / 10 (bar)");
-
             return pres;
     }
 
@@ -453,8 +410,6 @@ public class GraphsController{
 
     private XYChart.Series<Integer, Double> getHumid() {
             //Creating graph for Pressure
-
-
             XYChart.Series<Integer, Double> humid = new XYChart.Series<>();
             if (customDate) {
                 index = dbc.getBeginDay();
@@ -505,12 +460,14 @@ public class GraphsController{
      * initializes ToggleGroup and adds rangeDay, rangeWeek, rangeMonth to it,
      * sets action listeners for these buttons
      */
+
     @FXML
     private void dataRange(){
         ToggleGroup group=new ToggleGroup();
         rangeDay.setToggleGroup(group);
         rangeWeek.setToggleGroup(group);
         rangeMonth.setToggleGroup(group);
+        custom.setToggleGroup(group);
         xAxis.setTickLabelsVisible(false);
         if(rangeDay.isSelected()){
             temperatureDay = dbc.getDay("temperature");
@@ -528,6 +485,7 @@ public class GraphsController{
             rangeWeek.setSelected(false);
             rangeMonth.setDisable(false);
             rangeMonth.setSelected(false);
+            custom.setSelected(false);
             customDate = false;
             setLineChart();
         };
@@ -548,7 +506,7 @@ public class GraphsController{
             rangeWeek.setDisable(true);
             rangeMonth.setDisable(false);
             rangeMonth.setSelected(false);
-            customDate=false;
+            custom.setSelected(false);
             setLineChart();
         };
         if(rangeMonth.isSelected()){
@@ -574,10 +532,10 @@ public class GraphsController{
             rangeWeek.setDisable(false);
             rangeWeek.setSelected(false);
             rangeMonth.setDisable(true);
+            custom.setSelected(false);
             customDate=false;
             setLineChart();
         };
-
     }
 
     /**
@@ -588,10 +546,10 @@ public class GraphsController{
     @FXML
     private void customDate() {
         dbc.custom();
-        setDay(false);
-        setWeek(false);
-        setMonth(false);
         if(dbc.getBeginDate().charAt(0) != 'n' && dbc.getEndDate().charAt(0) != 'n' ) {
+            setDay(false);
+            setWeek(false);
+            setMonth(false);
             index = pc.getBeginDay();
             customDate = true;
 
@@ -615,10 +573,16 @@ public class GraphsController{
             xAxis.setTickLabelsVisible(true);
             setLineChart();
         }else{
+            custom.setSelected(false);
             System.out.println("Invalid value has been entered");
         }
-
     }
+
+    /**
+     * method to set the hours for last day
+     * @param set set to true to show last day, false to disable it
+     */
+
     private void setDay(boolean set){
         if(set){
             hour_0.setVisible(true);
@@ -653,6 +617,12 @@ public class GraphsController{
             hour_24.setVisible(false);
         }
     }
+
+    /**
+     * method to set the days for last week
+     * @param set set to true to show last week, false to disable it
+     */
+
     private void setWeek(boolean set){
         if(set) {
             week_0.setVisible(true);
@@ -682,6 +652,12 @@ public class GraphsController{
             week_7.setVisible(false);
         }
     }
+
+    /**
+     * method to set the days for last week
+     * @param set set to true to show last month, false to disable it
+     */
+
     private void setMonth(boolean set){
         if(set){
             day_1.setVisible(true);
@@ -720,6 +696,13 @@ public class GraphsController{
             day_31.setVisible(false);
         }
     }
+
+    /**
+     * method to get the month to the corresponding month value
+     * @param month the month value given
+     * @return corresponding month
+     */
+
     private String getMonth(int month){
         String monthString;
         switch (month){
