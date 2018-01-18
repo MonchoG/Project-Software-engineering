@@ -1,20 +1,8 @@
-.custom {
-    -fx-border-width: 0;
-    -fx-background-radius: 0;
-    -fx-background-color: white;
-    -fx-opacity: 0.6;
-    -fx-font-family: "Yu Gothic Light";
-    -fx-font-size: 12;
-    -fx-text-fill: black;
-}
-.custom:pressed{
 
-    -fx-opacity: 1;
+.label {
+    -fx-text-fill: white;
+}
 
-}
-.custom:selected{
-    -fx-opacity: 1;
-}
 .back {
     -fx-border-width: 0;
     -fx-background-radius: 0;
@@ -32,6 +20,7 @@
     -fx-font-size: 16;
     -fx-text-fill: cornflowerblue;
 }
+
 .back:selected {
     -fx-border-width: 0;
     -fx-background-radius: 0;
@@ -40,6 +29,7 @@
     -fx-font-size: 16;
     -fx-text-fill: cornflowerblue;
 }
+
 .back:pressed {
     -fx-border-width: 0;
     -fx-background-radius: 0;
@@ -47,6 +37,16 @@
     -fx-font-family: "Yu Gothic Light";
     -fx-font-size: 16;
     -fx-text-fill: cornflowerblue;
+}
+
+.apply {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-opacity: 0.6;
+    -fx-font-family: "Yu Gothic Light";
+    -fx-font-size: 12;
+    -fx-text-fill: black;
 }
 
 .toggle-button {
@@ -59,6 +59,16 @@
     -fx-text-fill: black;
 }
 
+.apply:pressed {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-font-family: "Yu Gothic Light";
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
+
 .toggle-button:pressed {
     -fx-border-width: 0;
     -fx-background-radius: 0;
@@ -69,7 +79,27 @@
     -fx-text: bold;
 }
 
+.apply:disabled {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-font-family: "Yu Gothic Light";
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
+
 .toggle-button:disabled {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-font-family: "Yu Gothic Light";
+    -fx-text-fill: black;
+    -fx-text: bold;
+}
+
+.apply:selected {
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: white;
