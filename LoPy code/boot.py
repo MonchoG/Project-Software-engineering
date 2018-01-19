@@ -1,4 +1,6 @@
-
+#project group 6
+#19-1-2018
+#lopy code to measure and send to ttn
 
 from SI7006A20 import SI7006A20
 from LTR329ALS01 import LTR329ALS01
