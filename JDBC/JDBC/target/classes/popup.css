@@ -1,0 +1,22 @@
+.set{
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: lightgrey;
+    -fx-font-family:"Yu Gothic Light";
+    -fx-font-size: 14;
+    -fx-text-fill: black;
+}
+
+.endDate.label{
+    -fx-font-family:"Yu Gothic Light";
+    -fx-font-size: 14;
+}
+.endDate {
+    -fx-background-color:linear-gradient(cornflowerblue,darkslateblue);
+}
+.beginDate {
+    -fx-background-color:linear-gradient(cornflowerblue,darkslateblue);
+}
+.root {
+    -fx-background-color: white;
+}

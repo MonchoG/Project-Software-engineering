@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-/** name : Db Manager class
- *  use :  Used for connecting to the database.
- *  remarks : The connection is done on local host
- *
+/**
+ * name : Db Manager class
+ * use :  Used for connecting to the database.
+ * remarks : The connection is done on local host
  */
 
 //TODO connect the database to cloud
@@ -18,12 +18,13 @@ public class DBmanager {
 
     private static DBmanager uniqueInstance = null;
     private static Connection connection = null;
-    static final String DB_URL = "jdbc:mysql://localhost/EMPLOYEES?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; // database url
+    static final String DB_URL = "jdbc:mysql://sql11.freemysqlhosting.net/"; // database url
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";       // driver
 
-    /** DB manager constructor
-     *  if the given database doesnt exist, it would print a message,
-     *  otherwise, if it connects it prints the corresponding message.
+    /**
+     * DB manager constructor
+     * if the given database doesnt exist, it would print a message,
+     * otherwise, if it connects it prints the corresponding message.
      */
     private DBmanager() {
         if (!dbExists()) {
@@ -32,7 +33,7 @@ public class DBmanager {
     }
 
     /**
-     *  The method creates an instance and returns it to the user
+     * The method creates an instance and returns it to the user
      */
     public static synchronized DBmanager getInstance() {
         if (uniqueInstance == null) {
@@ -41,7 +42,8 @@ public class DBmanager {
         return uniqueInstance;
     }
 
-    /** dbExists method
+    /**
+     * dbExists method
      * Used to make connection to the database
      *
      * @return true or false, depending if the database exists
@@ -54,7 +56,7 @@ public class DBmanager {
         try {
             if (connection == null) makeConnection();
             statement = connection.createStatement();
-            statement.executeQuery("USE weatherstation;");
+            statement.executeQuery("USE sql11215263;");
         } catch (SQLException se) {
             se.printStackTrace();
         } finally {
@@ -71,8 +73,9 @@ public class DBmanager {
         return exists;
     }
 
-    /** makeConnection method
-     *  reads the credentials from the property file and makes a connect statement with properties read.
+    /**
+     * makeConnection method
+     * reads the credentials from the property file and makes a connect statement with properties read.
      */
 
     public void makeConnection() {
@@ -85,11 +88,11 @@ public class DBmanager {
 
             String db_url = props.getProperty("jdbc.db_url");
             String db_params = props.getProperty("jdbc.db_params");
-            String username = props.getProperty("jdbc.username","");
+            String username = props.getProperty("jdbc.username", "");
             String password = props.getProperty("jdbc.password", "");
 
             connection = DriverManager.getConnection(db_url + db_params, username, password);
-        } catch(SQLException se) {
+        } catch (SQLException se) {
             System.err.println("Connection error....");
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,21 +102,20 @@ public class DBmanager {
                     in.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                return;
             }
         }
     }
 
     /**
-     *  close method
-     *  used to close the connection to the database
+     * close method
+     * used to close the connection to the database
      */
-    public void close(){
+    public void close() {
         try {
             connection.close();
             uniqueInstance = null;
             connection = null;
-        } catch ( SQLException se){
+        } catch (SQLException se) {
             se.printStackTrace();
         }
     }

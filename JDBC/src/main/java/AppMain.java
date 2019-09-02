@@ -7,17 +7,19 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class AppMain extends Application {
-    Stage window;
-    Scene scene1, scene2;
-    private Pane pane1;
-    private Pane pane2;
+    private Stage window;
+
     public static void main(String[] args) {
         Application.launch(args);
     }
     @Override
     public void start(Stage stage) throws Exception {
+        Scene scene1, scene2;
+        Pane pane1;
+        Pane pane2;
         FXMLLoader loader = new FXMLLoader();
         window = stage;
+        window.setResizable(false );
         loader.setLocation(AppMain.class.getResource("screen_current_weather.fxml"));
         pane1 = loader.load();
         CurrentWeatherController currentWeatherController = loader.getController();
@@ -28,10 +30,11 @@ public class AppMain extends Application {
         GraphsController graphsController = loader.getController();
 
         scene1 = new Scene(pane1, 400, 400);
-        scene2 = new Scene(pane2, 600, 400);
+        scene2 = new Scene(pane2, 600, 500);
 
         scene1.getStylesheets().add(getClass().getResource("screen_current_weather_css.css").toExternalForm());
-        scene2.getStylesheets().add(getClass().getResource("screen_current_weather_css.css").toExternalForm());
+        scene2.getStylesheets().add(getClass().getResource("graph_screen.css").toExternalForm());
+
 
         currentWeatherController.setScene2(scene2);
         currentWeatherController.setMain(AppMain.this);
@@ -47,17 +50,4 @@ public class AppMain extends Application {
         window.setScene(scene);
     }
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-public class AppMain extends Application {
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-    @Override
-    public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(new WeatherStationGUI(), 600, 280));
-        stage.show();
-    }
 }
